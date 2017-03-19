@@ -1,0 +1,25 @@
+{
+  "name": "douyun",
+  "version": "0.1.0",
+  "description": "豆云智能健康系统",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uicestone/douyun.git"
+  },
+  "author": "Uice Lu",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/uicestone/douyun/issues"
+  },
+  "homepage": "https://github.com/uicestone/douyun#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.1",
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
+}
