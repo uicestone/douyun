@@ -1,0 +1,58 @@
+<div class="page page-profile" ng-controller="authCtrl">
+    <div class="row ui-section">
+        <div class="panel panel-default project-list">
+            <div class="panel-heading">
+                <div class="panel-title">个人资料</div>
+            </div>
+            <div class="panel-body">
+
+                <div layout="row">
+                    <div class="profile-img" flex="1">
+                        <md-icon style="color:white;font-size:100px;width:100px;height:100px">account_circle</md-icon>
+                    </div>
+
+                    <div layout="row" flex>
+                        <div flex layout="column">
+                            <md-input-container>
+                                <label>姓名</label>
+                                <input type="text" ng-model="user.name">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>邮箱</label>
+                                <input type="text" ng-model="user.email">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>修改密码</label>
+                                <input type="password" ng-model="user.password">
+                            </md-input-container>
+                        </div>
+                        <div flex layout="column">
+                            <md-input-container class="md-input-has-value">
+                                <label>公司</label>
+                                <p style="height:30px;line-height:30px;margin-bottom:23px">{{ user.company }}</p>
+                            </md-input-container>
+                            <md-input-container class="md-input-has-value">
+                                <label>品牌</label>
+                                <p style="height:30px;line-height:30px;margin-bottom:23px">{{ user.brand.name }}</p>
+                            </md-input-container>
+                            <md-input-container class="md-input-has-value">
+                                <label>角色</label>
+                                <p style="height:30px;line-height:30px;margin-bottom:23px">{{ user.roles }}</p>
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <md-button ng-click="updateUser(user)">保存</md-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <ul class="list-unstyled list-inline">
+                    <li><i class="fa fa-video-camera"></i> 品牌 <span class="text-muted">(1)</span></li>
+                    <li><i class="fa fa-image"></i> 项目 <span class="text-muted">({{ projectCount }})</span></li>
+                    <li><i class="fa fa-bookmark"></i> 访客 <span class="text-muted">({{ customerCount }})</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

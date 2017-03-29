@@ -1,0 +1,70 @@
+.timeline-channels, .timeline-timings {
+
+    .endpoint {
+        color: #d6d6d6;
+        text-align: center;
+        position: relative;
+        top: 15px;
+
+        label {
+            font-size: 12px;
+        }
+    }
+
+    .baseline {
+        border-bottom: 3px solid #eeeeee;
+        margin: 0 10px;
+
+        .channel {
+            position: relative;
+            height: 45px;
+            top: 3px;
+            border-bottom: 3px solid #bde2a8;
+
+            label {
+                font-size: 12px;
+                color: #7f7f7f;
+                margin-left: -10px;
+            }
+
+            &.project label {
+                position: absolute;
+                bottom: -7px;
+                left: 4px;
+                z-index: 1;
+                white-space: pre;
+            }
+
+            .channel-endpoint {
+                background-color: #c5eab1;
+                width: 30px;
+                height: 30px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 75px;
+                border-bottom-right-radius: 75px;
+                border-bottom-left-radius: 75px;
+                transform: rotate(-135deg);
+                margin-bottom: 7px;
+                position: relative;
+
+                .date {
+                    transform: rotate(135deg) scale(0.9);
+                    font-size: 12px;
+                    color: white;
+                    text-align: center;
+                    position: relative;
+                    left: -1px;
+                    top: 5px;
+                }
+            }
+        }
+    }
+}
+
+.kpis-timing {
+    margin-top: 40px;
+
+    .kpi-timing {
+        margin-top: 40px;
+    }
+}

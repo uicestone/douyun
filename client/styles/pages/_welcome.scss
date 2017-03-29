@@ -1,0 +1,69 @@
+.body-welcome {
+    // #content {
+        background-color: $white;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover; 
+    // }
+}
+
+.page-welcome {
+    position: relative;
+    // width: 100%;
+    height: 100%;
+
+    .welcome-container {
+        padding: 45px 10px 0;
+        @media (min-width:$screen-sm) {
+            padding: 100px 0 0;
+        } 
+    }
+
+    .welcome {
+        color: $bright;
+
+        h1 {
+            margin-bottom: 35px;
+            color: $dark;
+            color: rgba(0,0,0,.8);
+            font-size: 30px;
+            font-weight: 300;
+            /*text-shadow: 2px 2px 5px rgba(0,0,0,.2);*/
+            @media (min-width:$screen-sm) {
+                font-size: 40px;
+            } 
+            &.logo {
+                margin-bottom: 80px;
+            }
+        }
+
+        h2 {
+            color: $bright;
+            color: rgba(0,0,0,.6);
+            margin: 0;
+            font-weight: 300;
+            font-size: 18px;
+            text-transform: uppercase;
+            @media (min-width:$screen-sm) {
+                font-size: 26px;
+            } 
+        }
+    }
+
+    .welcome-body {
+        padding: 80px 10px;
+
+        .btn-lg {
+            height: 60px;
+            line-height: 41px;
+            font-size: 22px;
+        }
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+    }
+
+}

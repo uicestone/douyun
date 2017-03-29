@@ -1,0 +1,124 @@
+.project-list.panel {
+    .panel-heading {
+        background: white;
+        padding: 0;
+        .panel-title {
+            color: $brand-primary;
+            display: inline-block;
+            border-bottom: 2px solid $brand-primary;
+            padding: 10px 15px;
+            font-size: 22px;
+        }
+    }
+    .panel-body {
+        background: #fafafa;
+    }
+}
+
+md-tabs.project-detail {
+
+    border: 1px solid #d7d7d7;
+    md-tabs-canvas {
+        background: white;
+    }
+    md-tabs-content-wrapper {
+        background: #fafafa;
+
+        .section-header {
+            font-size: 28px;
+            margin: 40px 0;
+        }
+    }
+
+    .actions {
+        margin: 30px auto;
+    }
+}
+
+.project-timing {
+
+    .toolbar label {
+        font-size: 12px;
+    }
+
+    .card {
+        margin: 1px;
+        border-radius: 0;
+        position: relative;
+        
+        .navigator {
+            position: absolute;
+            top: 10px;
+            &.previous {
+                left: 0;
+            }
+            &.next {
+                right: 0;
+            }
+        }
+    }
+
+    .month, .week {
+        text-align: center;
+    }
+
+    .months {
+        border-bottom: 1px dashed #ddd;
+
+        .month {
+            padding: 5px;
+            border-left: 1px solid #ddd;
+            &:first-child {
+                border-left: none;
+            }
+        }
+    }
+
+    .weeks {
+        .week {
+            padding: 5px;
+            &:last-child {
+                border-right: 1px solid #ddd;
+            }
+        }
+    }
+
+    .projects {
+
+        overflow: hidden;
+
+        .project {
+            height: 30px;
+            padding: 5px 10px;
+            margin-top: 5px;
+            border-radius: 15px;
+
+            background-color: #eee;
+            color: $brand-primary;
+
+            &.in-progress {
+                background-color: $brand-primary;
+                color: $white;
+            }
+
+            &.ended {
+                background-color: #6bc04b;
+                color: $white;
+            }
+
+            &.starts-before-timeline {
+                border-radius: 0 15px 15px 0;
+            }
+
+            &.ends-after-timeline {
+                border-radius: 15px 0 0 15px;
+            }
+
+            .project-name {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+}
