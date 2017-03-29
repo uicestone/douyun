@@ -269,7 +269,7 @@ table.md-table .md-table-progress th md-progress-linear > .md-container > .md-ba
 }
 table.md-table th.md-column {
     color: rgba(0, 0, 0, 0.54);
-    font-size: 12px;
+    /*font-size: 12px;*/
     font-weight: bold;
     white-space: nowrap;
 }
@@ -378,7 +378,7 @@ table.md-table th.md-column md-checkbox {
 }
 table.md-table td.md-cell {
     color: rgba(0, 0, 0, 0.87);
-    font-size: 13px;
+    /*font-size: 15px;*/
     border-top: 1px rgba(0, 0, 0, 0.12) solid;
 }
 table.md-table td.md-cell.md-numeric md-select {

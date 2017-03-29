@@ -42,17 +42,17 @@
         >li>a>i,
         >li>a>.nav-icon {
             display: inline-block;
-            vertical-align: bottom; // for material-icons
-            margin-right: 10px;
-            width: 20px;
+            vertical-align: initial; // for fontawesome
+            margin-right: 20px;
+            width: 5px;
             line-height: $line-height-computed;
             text-align: center;
-            font-size: 16px;
+            /*font-size: 16px;*/
             transition: all $nav-transition_duration ease-in-out;
         }
 
         a {
-            font-size: 16px;
+            /*font-size: 16px;*/
             transition: all $nav-transition_duration ease-in-out;
             &:hover,
             &:focus,
