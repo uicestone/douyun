@@ -5,15 +5,42 @@
         data-slim-scroll
         data-collapse-nav
         data-highlight-active>
-        <li class="nav-title"> <span data-translate="NAVIGATION"></span> </li>
-        <li ng-if="user.can('edit-project')"><a md-button aria-label="menu" href="#!/welcome"><i class="fa fa-check-square-o"></i><span data-translate="PROJECT_WIZARD"></span></a></li>
-        <li ng-if="user.can('list-project')"><a md-button aria-label="menu" href="#!/project/list"><i class="fa fa-list-alt"></i><span data-translate="PROJECT_MANAGEMENT"></span></a></li>
-        <li ng-if="user.can('timing-project')"><a md-button aria-label="menu" href="#!/project/timing" ng-show="!isGuest"><i class="fa fa-calendar"></i><span data-translate="PROJECT_TIMING"></span></a></li>
-        <li ng-if="user.can('image-customer')"><a md-button aria-label="menu" href="#!/customer/image"><i class="fa fa-users"></i><span data-translate="CUSTOMER_IMAGE"></span></a></li>
-        <li ng-if="user.can('reach-customer')"><a md-button aria-label="menu" href="#!/customer/reaching"><i class="fa fa-envelope"></i><span data-translate="CUSTOMER_REACHING"></span></a></li>
-        <li ng-if="user.can('set-channel')"><a md-button aria-label="menu" href="#!/setting/channel"><i class="fa fa-code-fork"></i><span data-translate="CHANNEL_SETTING"></span></a></li>
-        <li ng-if="user.can('set-data')"><a md-button aria-label="menu" href="#!/setting/data" ng-show="true"><i class="fa fa-database"></i><span data-translate="DATA_SETTING"></span></a></li>
-        <li ng-if="user.can('set-user')"><a md-button aria-label="menu" href="#!/setting/user" ng-show="true"><i class="fa fa-user-plus"></i><span data-translate="USER_SETTING"></span></a></li>
-        <li><a md-button aria-label="menu" href="#!/profile"><i class="fa fa-user"></i><span data-translate="USER_PROFILE"></span></a></li>
+        <li class="nav-title"> 导航 </li>
+        <li>
+            <a md-button aria-label="menu" href="#!/welcome">
+                <i class="fa fa-check-square-o"></i>
+                <span>欢迎使用</span>
+            </a>
+        </li>
+        <li ng-if="user.can('list-institution')">
+            <a md-button aria-label="menu" href="#!/institution/list">
+                <i class="fa fa-building"></i>
+                <span>护理机构</span>
+            </a>
+        </li>
+        <li ng-if="user.can('view-single-institution')">
+            <a md-button aria-label="menu" href="#!/institution/{{ user.institution._id }}">
+                <i class="fa fa-building"></i>
+                <span>我的机构</span>
+            </a>
+        </li>
+        <li ng-if="user.can('list-client')">
+            <a md-button aria-label="menu" href="#!/client/list">
+                <i class="fa fa-blind"></i>
+                <span>护理对象</span>
+            </a>
+        </li>
+        <li ng-if="user.can('list-user')">
+            <a md-button aria-label="menu" href="#!/user/list?roles=nurse&roles=assistant" ng-show="true">
+                <i class="fa fa-user-md"></i>
+                <span>护理人员</span>
+            </a>
+        </li>
+        <li ng-if="user.can('list-user')">
+            <a md-button aria-label="menu" href="#!/user/list?roles=family" ng-show="true">
+                <i class="fa fa-home"></i>
+                <span>家属亲友</span>
+            </a>
+        </li>
     </ul>
 </div>

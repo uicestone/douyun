@@ -23,46 +23,6 @@
     <div class="top-nav">
         <ul class="nav-left list-unstyled">
             <li><md-button class="header-btn toggle-min" data-toggle-nav-collapsed-min aria-label="toggle-nav-collapsed-min"><i class="material-icons">menu</i></md-button></li>
-            <!-- <li>
-                <md-menu md-position-mode="left bottom">
-                    <md-button class="header-btn" aria-label="menu" ng-click="$mdOpenMenu($event)">
-                        <i class="material-icons">email</i>
-                        <span class="badge">3</span>
-                    </md-button>
-                    <md-menu-content class="top-header-dropdown" width="4">
-                        <md-list class="md-dense">
-                            <md-list-item class="md-2-line" ng-click="null">
-                                <md-icon class="material-icons">mail_outline</md-icon>
-                                <div class="md-list-item-text">
-                                    <h3>项目提醒</h3>
-                                    <p>5分钟前</p>
-                                </div>
-                            </md-list-item>
-                            <md-list-item class="md-2-line" ng-click="null">
-                                <md-icon class="material-icons">chat_bubble_outline</md-icon>
-                                <div class="md-list-item-text">
-                                    <h3>系统消息</h3>
-                                    <p>15分钟前</p>
-                                </div>
-                            </md-list-item>
-                            <md-list-item class="md-2-line" ng-click="null">
-                                <md-icon class="material-icons">person_outline</md-icon>
-                                <div class="md-list-item-text">
-                                    <h3>成员加入</h3>
-                                    <p>1小时前</p>
-                                </div>
-                            </md-list-item>
-                        </md-list>
-                    </md-menu-content>
-                </md-menu>
-            </li> -->
-            <!-- <li class="search-box visible-md visible-lg">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="material-icons">search</i></span>
-                    <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}">
-                    <span class="input-bar"></span>
-                </div>
-            </li> -->
         </ul> 
 
         <ul class="nav-right pull-right list-unstyled">
@@ -73,9 +33,8 @@
                         {{ user.name }}
                     </md-button>
                     <md-menu-content class="top-header-dropdown" width="3">
-                        <md-menu-item><md-button aria-label="menu" ng-href="#!/"><md-icon class="material-icons">assignment</md-icon><span data-translate="DASHBOARD"></span></md-button></md-menu-item>
-                        <md-menu-item><md-button aria-label="menu" ng-href="#!/profile"><md-icon class="material-icons">lock_outline</md-icon><span data-translate="MY_PROFILE"></span></md-button></md-menu-item>
-                        <md-menu-item><md-button aria-label="menu" ng-click="logout()"><md-icon class="material-icons">keyboard_tab</md-icon><span data-translate="LOG_OUT"></span></md-button></md-menu-item>
+                        <md-menu-item><md-button aria-label="menu" ng-href="#!/profile"><md-icon class="material-icons">assignment</md-icon>个人资料</md-menu-item>
+                        <md-menu-item><md-button aria-label="menu" ng-click="logout()"><md-icon class="material-icons">keyboard_tab</md-icon>退出登录</md-button></md-menu-item>
                     </md-menu-content>
                 </md-menu>
             </li>
