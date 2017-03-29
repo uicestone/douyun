@@ -1,0 +1,31 @@
+<div class="page" ng-controller="institutionListCtrl">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">护理机构</h2>
+        </div>
+        <div class="col-md-12">
+            <md-card class="no-margin-h">
+                <md-table-container>
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order" md-on-reorder="getInstitutions">
+                            <tr md-row>
+                                <th md-column>名称</th>
+                                <th md-column>床位数</th>
+                                <th md-column>电话</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="institution in institutions" ng-click="showInstitutionDetail(institution)">
+                                <td md-cell>{{ institution.name }}</td>
+                                <td md-cell>{{ institution.beds.length }}</td>
+                                <td md-cell>{{ institution.phone }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+
+                <md-table-pagination md-limit="query.limit" md-limit-options="[20, 50, 100]" md-page="query.page" md-total="{{ institutions.$total }}" md-on-paginate="getInstitutions" md-page-select md-label="{of:'/', page:'页码', rowsPerPage:'每页条数'}"></md-table-pagination>
+            </md-card>
+        </div>
+    </div>
+</div>

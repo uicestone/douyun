@@ -6,6 +6,7 @@ const Bean = require('./bean.js');
 
 const clientSchema = new Schema({
     name: String,
+    institution: {_id: Schema.ObjectId, name: String},
     room: {_id: Schema.ObjectId, num: String},
     bed: {_id: Schema.ObjectId, num: String},
     bean: {_id: Schema.ObjectId, mac: String},

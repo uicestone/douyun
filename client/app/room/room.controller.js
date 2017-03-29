@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app.room')
-    .controller('roomCtrl', ['$scope', '$window', '$location', 'authService', roomCtrl]);
+    .controller('roomCtrl', ['$scope', roomCtrl]);
 
     function roomCtrl($scope) {
 

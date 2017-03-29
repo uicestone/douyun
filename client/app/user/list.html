@@ -1,0 +1,31 @@
+<div class="page" ng-controller="userListCtrl">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{ userType }}</h2>
+        </div>
+        <div class="col-md-12">
+            <md-card class="no-margin-h">
+                <md-table-container>
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order" md-on-reorder="getUsers">
+                            <tr md-row>
+                                <th md-column>姓名</th>
+                                <th md-column>角色</th>
+                                <th md-column>护理机构</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="user in users" ng-click="showUserDetail(user)">
+                                <td md-cell>{{ user.name }}</td>
+                                <td md-cell>{{ user.mobile }}</td>
+                                <td md-cell>{{ user.institution.name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+
+                <md-table-pagination md-limit="query.limit" md-limit-options="[20, 50, 100]" md-page="query.page" md-total="{{ users.$total }}" md-on-paginate="getUsers" md-page-select md-label="{of:'/', page:'页码', rowsPerPage:'每页条数'}"></md-table-pagination>
+            </md-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="page" ng-controller="clientListCtrl">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">护理对象</h2>
+        </div>
+        <div class="col-md-12">
+            <md-card class="no-margin-h">
+                <md-table-container>
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order" md-on-reorder="getClients">
+                            <tr md-row>
+                                <th md-column>姓名</th>
+                                <th md-column>年龄</th>
+                                <th md-column>护理机构</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="client in clients" ng-click="showClientDetail(client)">
+                                <td md-cell>{{ client.name }}</td>
+                                <td md-cell>{{ client.age }}</td>
+                                <td md-cell>{{ client.institution.name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+
+                <md-table-pagination md-limit="query.limit" md-limit-options="[20, 50, 100]" md-page="query.page" md-total="{{ clients.$total }}" md-on-paginate="getClients" md-page-select md-label="{of:'/', page:'页码', rowsPerPage:'每页条数'}"></md-table-pagination>
+            </md-card>
+        </div>
+    </div>
+</div>
