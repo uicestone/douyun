@@ -48,10 +48,10 @@ module.exports = (router) => {
             }).filter(line => {
                 return line.type === 0 && line.brand === 'XuXuKou';
             }).map(line => {
-                console.log(line.mac, line.temp, line.humi, line.distance);
+                // console.log(line.mac, line.temp, line.humi, line.distance);
             });
 
-            console.log('===============================');
+            // console.log('===============================');
 
             res.end();
         });
