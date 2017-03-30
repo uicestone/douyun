@@ -31,6 +31,11 @@
             height: 65px;
             line-height: 65px;
         }
+        &.md-fab-corner {
+            position: fixed;
+            right: 1em;
+            bottom: 1em;
+        }
     }
 }
 // Sizing, need to overrides again for md-button

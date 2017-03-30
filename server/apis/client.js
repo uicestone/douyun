@@ -31,6 +31,15 @@ module.exports = (router) => {
                 skip = (req.query.page - 1) * limit;
             }
 
+            if(req.query.institution) {
+                query.find({'institution._id': institution});
+            }
+            else if(req.user.roles.indexOf('admin') === -1) {
+                query.find({
+                    'institution._id': req.user.institution._id
+                });
+            }
+
             query.count()
             .then((total) => {
                 return Promise.all([total,

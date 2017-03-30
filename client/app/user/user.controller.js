@@ -20,7 +20,7 @@
         $scope.getUser();
 
         $scope.showUserDetail = function (user) {
-            $location.path('/user/' + user._id);
+            $location.url('/user/' + user._id);
         };
 
     }

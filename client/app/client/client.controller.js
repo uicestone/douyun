@@ -18,7 +18,7 @@
         $scope.getClient();
 
         $scope.showClientDetail = function (client) {
-            $location.path('/client/' + client._id);
+            $location.url('/client/' + client._id);
         };
 
     }

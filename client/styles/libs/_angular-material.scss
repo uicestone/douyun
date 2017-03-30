@@ -90,4 +90,9 @@ md-toast {
     }
 }
 
-
+md-bottom-sheet {
+    position: fixed;
+    .md-button.md-fab.md-fab-corner {
+        bottom: 4.8em;
+    }
+}

@@ -31,11 +31,12 @@ module.exports = (router) => {
                 skip = (req.query.page - 1) * limit;
             }
 
-            // user can only list users from the same institution
-
-            if(req.user.roles.indexOf('admin') === -1) {
+            if(req.query.institution) {
+                query.find({'institution._id': institution});
+            }
+            else if(req.user.roles.indexOf('admin') === -1) {
                 query.find({
-                    'institution.name': req.user.institution.name
+                    'institution._id': req.user.institution._id
                 });
             }
 
@@ -46,8 +47,9 @@ module.exports = (router) => {
             }
 
             if(req.query.roles) {
+                const roles = Array.isArray(req.query.roles) ? req.query.roles : [req.query.roles];
                 query.find({
-                    roles: req.query.roles
+                    roles: {$in: roles}
                 });
             }
 

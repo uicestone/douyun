@@ -1,0 +1,22 @@
+<md-bottom-sheet class="md-list md-has-header" style="position:fixed">
+    <md-subheader ng-cloak>编辑护理人员</md-subheader>
+    <div layout="row">
+        <div flex="30" layout="column">
+            <md-input-container>
+                <label>姓名</label>
+                <input ng-model="user.name">
+            </md-input-container>
+            <md-input-container>
+                <label>手机号</label>
+                <input ng-model="user.mobile">
+            </md-input-container>
+            <md-input-container>
+                <label>角色</label>
+                <input ng-model="user.roles">
+            </md-input-container>
+        </div>
+        <md-button ng-click="updateUser(user)" class="md-fab md-fab-corner">
+            <md-icon>done</md-icon>
+        </md-button>
+    </div>
+</md-bottom-sheet>
