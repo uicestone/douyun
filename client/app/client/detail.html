@@ -1,0 +1,62 @@
+<div class="page" ng-controller="clientDetailCtrl">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{ client.name }}</h2>
+        </div>
+        <div class="col-md-12">
+            <md-tabs md-border-bottom md-dynamic-height>
+                <md-tab label="概况">
+                    <md-card layout="row" layout-padding>
+                        <div flex layout-padding>
+                            <form layout="column">
+                                <md-input-container>
+                                    <label>姓名</label>
+                                    <input ng-model="client.name">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>年龄</label>
+                                    <input ng-model="client.age">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>疾病史</label>
+                                    <input ng-model="client.history">
+                                </md-input-container>
+                            </form>
+                        </div>
+                        <div flex>
+                            
+                        </div>
+                    </md-card>
+                    <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
+                </md-tab>
+                <md-tab label="记录">
+                    <md-card layout-padding>
+                        <md-table-container>
+                            <table md-table>
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>时间</th>
+                                        <th md-column>记录</th>
+                                        <th md-column>护理人员</th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="log in logs" ng-click="editLog(log)">
+                                        <td md-cell>{{ log.createdAt | date:'yyyy-MM-dd HH:mm' }}</td>
+                                        <td md-cell>{{ log.title }}</td>
+                                        <td md-cell>{{ log.assistant.name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-card>
+                    <md-button ng-click="editLog(log)" class="md-fab md-fab-corner"><md-icon>add</md-icon></md-button>
+                </md-tab>
+                <md-tab label="统计">
+                    <md-card layout-padding>
+                    </md-card>
+                </md-tab>
+            </md-tabs>
+        </div>
+    </div>
+</div>

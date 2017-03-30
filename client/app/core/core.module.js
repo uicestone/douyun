@@ -18,6 +18,7 @@
         ,'duScroll'
         ,'angular-clipboard'
         ,'as.sortable'
+        ,'ngMaterialDatePicker'
     ]);
 
 })();

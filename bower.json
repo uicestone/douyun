@@ -1,5 +1,5 @@
 {
-  "name":"douyun",
+  "name": "douyun",
   "dependencies": {
     "jquery": "^2.2.4",
     "angular": "^1.6.0",
@@ -22,7 +22,8 @@
     "angular-clipboard": "^1.5.0",
     "angular-route": "^1.6.3",
     "moment": "^2.18.0",
-    "ng-sortable": "^1.3.7"
+    "ng-sortable": "^1.3.7",
+    "angular-material-datetimepicker": "^1.5.1"
   },
   "devDependencies": {
     "bootstrap-sass-official": "^3.3.0"

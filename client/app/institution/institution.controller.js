@@ -29,7 +29,7 @@
 
         $scope.$watch('institution', function (newValue, oldValue) {
             if (oldValue.$resolved) {
-                newValue.$changed = true;
+                $scope.institutionChanged = true;
             }
         }, true);
 

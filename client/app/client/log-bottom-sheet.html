@@ -1,0 +1,29 @@
+<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader ng-cloak>编辑护理日志</md-subheader>
+    <div layout="row">
+        <div flex="30" layout="column">
+            <div flex layout="row">
+                <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:assistantSearchText" md-search-text="assistantSearchText" md-item-text="assistant.name" md-selected-item="log.assistant" md-min-length="0" md-no-cache="true">
+                    <span>{{assistant.name}}</span>
+                </md-autocomplete>
+                <md-input-container flex>
+                    <label>时间</label>
+                    <input ng-model="log.createdAt" mdc-datetime-picker date="true" time="true" show-todays-date class="md-input" readonly today-text="今天" ok-text="确定" cancel-text="取消">
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>记录</label>
+                <input ng-model="log.title">
+            </md-input-container>
+        </div>
+        <div flex="30" layout="column">
+            <md-input-container>
+                <label>描述</label>
+                <textarea ng-model="log.description"></textarea>
+            </md-input-container>
+        </div>
+        <md-button ng-click="updateLog(log)" class="md-fab md-fab-corner">
+            <md-icon>done</md-icon>
+        </md-button>
+    </div>
+</md-bottom-sheet>
