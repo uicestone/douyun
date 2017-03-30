@@ -3,7 +3,10 @@
 
     angular.module('app.institution')
     .controller('institutionListCtrl', ['$scope', '$location', 'institutionService', institutionListCtrl])
-    .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl]);
+    .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl])
+    .controller('institutionRoomBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'room', institutionRoomBottomSheetCtrl])
+    .controller('institutionNurseBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'user', institutionNurseBottomSheetCtrl])
+    .controller('institutionClientBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'client', institutionClientBottomSheetCtrl]);
 
     function institutionListCtrl($scope, $location, institutionService) {
 
@@ -53,21 +56,11 @@
                 room.institution = $scope.institution;
             }
 
-            $scope.room = room;
-
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/room-bottom-sheet.html',
-                scope: $scope,
-                preserveScope: true
+                controller: 'institutionRoomBottomSheetCtrl',
+                locals: {room: room}
             });
-        };
-
-        $scope.updateRoom = function (room) {
-            $mdBottomSheet.hide();
-            room.$save();
-            if(!room._id) {
-                $scope.rooms.push(room);
-            }
         };
 
         $scope.editUser = function (user) {
@@ -76,21 +69,11 @@
                 user.institution = $scope.institution;
             }
 
-            $scope.user = user;
-
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/nurse-bottom-sheet.html',
-                scope: $scope,
-                preserveScope: true
+                controller: 'institutionNurseBottomSheetCtrl',
+                locals: {user: user}
             });
-        };
-
-        $scope.updateUser = function (user) {
-            $mdBottomSheet.hide();
-            user.$save();
-            if(!user._id) {
-                $scope.assistants.push(user);
-            }
         };
 
         $scope.editClient = function (client) {
@@ -99,15 +82,39 @@
                 client.institution = $scope.institution;
             }
 
-            $scope.client = client;
-
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/client-bottom-sheet.html',
-                scope: $scope,
-                preserveScope: true
+                controller: 'institutionClientBottomSheetCtrl',
+                locals: {client: client}
             });
         };
 
+    }
+
+    function institutionRoomBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, room) {
+        $scope.room = room;
+        $scope.updateRoom = function (room) {
+            $mdBottomSheet.hide();
+            room.$save();
+            if(!room._id) {
+                $scope.rooms.push(room);
+            }
+        };
+    }
+
+    function institutionNurseBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, user) {
+        $scope.user = user
+        $scope.updateUser = function (user) {
+            $mdBottomSheet.hide();
+            user.$save();
+            if(!user._id) {
+                $scope.assistants.push(user);
+            }
+        };
+    }
+
+    function institutionClientBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, client) {
+        $scope.client = client;
         $scope.updateClient = function (client) {
             $mdBottomSheet.hide();
             client.$save();
@@ -115,7 +122,6 @@
                 $scope.clients.push(client);
             }
         };
-
     }
 
 })(); 
