@@ -86,14 +86,14 @@
                                         <th md-column>姓名</th>
                                         <th md-column>房间</th>
                                         <th md-column>床位</th>
-                                        <th md-column>护工</th>
+                                        <th md-column>护理人员</th>
                                     </tr>
                                 </thead>
                                 <tbody md-body>
                                     <tr md-row ng-repeat="client in clients" ng-click="editClient(client)">
                                         <td md-cell>{{ client.name }}</td>
                                         <td md-cell>{{ client.room.num }}</td>
-                                        <td md-cell>{{ client.bed.num }}</td>
+                                        <td md-cell>{{ client.room.bedNum }}</td>
                                         <td md-cell>{{ client.assistant.name }}</td>
                                     </tr>
                                 </tbody>

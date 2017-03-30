@@ -10,6 +10,22 @@
                 <label>年龄</label>
                 <input ng-model="client.age">
             </md-input-container>
+            <md-input-container>
+                <label>疾病史</label>
+                <textarea ng-model="client.history"></textarea>
+            </md-input-container>
+        </div>
+        <div flex="30" layout="column">
+            <md-autocomplete md-floating-label="护理人员" md-items="assistant in assistants | filter:assistantSearchText" md-search-text="assistantSearchText" md-item-text="assistant.name" md-selected-item="client.assistant" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
+                <span>{{assistant.name}}</span>
+            </md-autocomplete>
+            <md-autocomplete md-floating-label="房间" md-items="room in rooms | filter:roomSearchText" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
+                <span>{{room.num}}</span>
+            </md-autocomplete>
+            <md-input-container>
+                <label>床位号</label>
+                <input ng-model="client.room.bedNum">
+            </md-input-container>
         </div>
         <md-button ng-click="updateClient(client)" class="md-fab md-fab-corner">
             <md-icon>done</md-icon>

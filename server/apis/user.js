@@ -9,6 +9,9 @@ module.exports = (router) => {
             
             let user = new User(req.body);      // create a new instance of the User model
 
+            if (!user.username) {
+                user.username = user.mobile;
+            }
             // save the user and check for errors
             user.save().then(user => {
                 res.json(user);

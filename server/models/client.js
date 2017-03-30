@@ -10,7 +10,7 @@ const clientSchema = new Schema({
     room: {_id: Schema.ObjectId, num: String, bedNum: String},
     bed: {_id: Schema.ObjectId, num: String},
     bean: {_id: Schema.ObjectId, mac: String},
-    assistant: String,
+    assistant: {_id: Schema.ObjectId, name: String},
     age: Number,
     history: String,
     status: new Schema({since: Date, name: String}),

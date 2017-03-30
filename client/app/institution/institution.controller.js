@@ -4,9 +4,9 @@
     angular.module('app.institution')
     .controller('institutionListCtrl', ['$scope', '$location', 'institutionService', institutionListCtrl])
     .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl])
-    .controller('institutionRoomBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'room', institutionRoomBottomSheetCtrl])
-    .controller('institutionNurseBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'user', institutionNurseBottomSheetCtrl])
-    .controller('institutionClientBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'client', institutionClientBottomSheetCtrl]);
+    .controller('institutionRoomBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'room', 'rooms', 'assistants', institutionRoomBottomSheetCtrl])
+    .controller('institutionNurseBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'userRolesConstant', 'user', 'assistants', institutionNurseBottomSheetCtrl])
+    .controller('institutionClientBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'client', 'clients', 'rooms', 'assistants', institutionClientBottomSheetCtrl]);
 
     function institutionListCtrl($scope, $location, institutionService) {
 
@@ -59,20 +59,21 @@
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/room-bottom-sheet.html',
                 controller: 'institutionRoomBottomSheetCtrl',
-                locals: {room: room}
+                locals: {room: room, rooms: $scope.rooms, assistants: $scope.assistants}
             });
         };
 
         $scope.editUser = function (user) {
             if(!user) {
                 user = new userService();
+                user.roles = [];
                 user.institution = $scope.institution;
             }
 
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/nurse-bottom-sheet.html',
                 controller: 'institutionNurseBottomSheetCtrl',
-                locals: {user: user}
+                locals: {user: user, assistants: $scope.assistants}
             });
         };
 
@@ -85,14 +86,16 @@
             $mdBottomSheet.show({
                 templateUrl: 'app/institution/client-bottom-sheet.html',
                 controller: 'institutionClientBottomSheetCtrl',
-                locals: {client: client}
+                locals: {client: client, clients: $scope.clients, rooms: $scope.rooms, assistants: $scope.assistants}
             });
         };
 
     }
 
-    function institutionRoomBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, room) {
+    function institutionRoomBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, room, rooms, assistants) {
         $scope.room = room;
+        $scope.rooms = rooms;
+        $scope.assistants = assistants;
         $scope.updateRoom = function (room) {
             $mdBottomSheet.hide();
             room.$save();
@@ -102,8 +105,10 @@
         };
     }
 
-    function institutionNurseBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, user) {
-        $scope.user = user
+    function institutionNurseBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, userRolesConstant, user, assistants) {
+        $scope.user = user;
+        $scope.assistants = assistants;
+        $scope.roles = userRolesConstant;
         $scope.updateUser = function (user) {
             $mdBottomSheet.hide();
             user.$save();
@@ -113,8 +118,11 @@
         };
     }
 
-    function institutionClientBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, client) {
+    function institutionClientBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, client, clients, rooms, assistants) {
         $scope.client = client;
+        $scope.clients = clients;
+        $scope.rooms = rooms;
+        $scope.assistants = assistants;
         $scope.updateClient = function (client) {
             $mdBottomSheet.hide();
             client.$save();
