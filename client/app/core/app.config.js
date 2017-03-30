@@ -61,22 +61,22 @@
             'contrastLightColors': '500 600 700 800 900',
             'contrastStrongLightColors': '500 600 700 800 900'
         })
-        var lightGreenAlt = $mdThemingProvider.extendPalette('light-green', {
+        var redAlt = $mdThemingProvider.extendPalette('red', {
             'contrastLightColors': '500 600 700 800 900',
             'contrastStrongLightColors': '500 600 700 800 900'
         })        
 
         $mdThemingProvider
             .definePalette('cyanAlt', cyanAlt)
-            .definePalette('lightGreenAlt', lightGreenAlt);
+            .definePalette('redAlt', redAlt);
 
 
         $mdThemingProvider.theme('default')
             .primaryPalette('cyanAlt', {
                 'default': '600'
             })
-            .accentPalette('lightGreenAlt', {
-                'default': '800'
+            .accentPalette('redAlt', {
+                'default': '400'
             })
             .warnPalette('red', {
                 'default': '500'
