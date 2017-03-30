@@ -32,7 +32,7 @@ module.exports = (router) => {
             }
 
             if(req.query.institution) {
-                query.find({'institution._id': institution});
+                query.find({'institution._id': req.query.institution});
             }
             else if(req.user.roles.indexOf('admin') === -1) {
                 query.find({

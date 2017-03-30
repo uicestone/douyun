@@ -3,7 +3,7 @@
 
     angular.module('app.institution')
     .controller('institutionListCtrl', ['$scope', '$location', 'institutionService', institutionListCtrl])
-    .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl]);
+    .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl]);
 
     function institutionListCtrl($scope, $location, institutionService) {
 
@@ -23,9 +23,18 @@
 
     }
 
-    function institutionDetailCtrl($scope, $route, $mdBottomSheet, institutionService, roomService, userService, clientService) {
+    function institutionDetailCtrl($scope, $route, $mdBottomSheet, $mdToast, institutionService, roomService, userService, clientService) {
 
-        $scope.institution = institutionService.get({id:$route.current.params.id});
+        if ($route.current.params.id === 'create') {
+            $scope.institution = new institutionService();
+        }
+        else {
+            $scope.institution = institutionService.get({id:$route.current.params.id}, function (institution) {
+                $scope.rooms = roomService.query({institution:institution._id, limit:1000});
+                $scope.assistants = userService.query({institution:institution._id, roles:['assistant', 'admin', 'nurse']});
+                $scope.clients = clientService.query({institution:institution._id, limit:1000});
+            });
+        }
 
         $scope.$watch('institution', function (newValue, oldValue) {
             if (oldValue.$resolved) {
@@ -33,12 +42,9 @@
             }
         }, true);
 
-        $scope.rooms = roomService.query({'inititution._id':$scope.institution._id, limit:1000});
-        $scope.assistants = userService.query({'inititution._id':$scope.institution._id, limit:1000});
-        $scope.clients = clientService.query({'inititution._id':$scope.institution._id, limit:1000});
-
         $scope.updateInstitution = function (institution) {
             institution.$save();
+            $mdToast.showSimple('护理机构已保存');
         };
 
         $scope.editRoom = function (room) {

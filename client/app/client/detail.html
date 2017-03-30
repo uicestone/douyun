@@ -6,9 +6,9 @@
         <div class="col-md-12">
             <md-tabs md-border-bottom md-dynamic-height>
                 <md-tab label="概况">
-                    <md-card layout="row" layout-padding>
-                        <div flex layout-padding>
-                            <form layout="column">
+                    <md-card layout-padding>
+                        <form layout="row" layout-padding>
+                            <div flex layout="column">
                                 <md-input-container>
                                     <label>姓名</label>
                                     <input ng-model="client.name">
@@ -21,11 +21,20 @@
                                     <label>疾病史</label>
                                     <input ng-model="client.history">
                                 </md-input-container>
-                            </form>
-                        </div>
-                        <div flex>
-                            
-                        </div>
+                            </div>
+                            <div flex layout="column">
+                                <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
+                                    <span>{{institution.name}}</span>
+                                </md-autocomplete>
+                                <md-autocomplete flex md-floating-label="房间" md-items="room in getRooms()" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true">
+                                    <span>{{room.num}}</span>
+                                </md-autocomplete>
+                                <md-input-container>
+                                    <label>床位</label>
+                                    <input ng-model="client.room.bedNum">
+                                </md-input-container>
+                            </div>
+                        </form>
                     </md-card>
                     <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
                 </md-tab>

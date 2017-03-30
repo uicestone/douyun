@@ -19,6 +19,9 @@
                     .when('/institution/list', {
                         templateUrl: 'app/institution/list.html'
                     })
+                    .when('/institution/create', {
+                        templateUrl: 'app/institution/detail.html'
+                    })
                     .when('/institution/:id', {
                         templateUrl: 'app/institution/detail.html'
                     })

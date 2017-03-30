@@ -3,7 +3,7 @@
 
     angular.module('app.client')
     .controller('clientListCtrl', ['$scope', '$location', 'clientService', clientListCtrl])
-    .controller('clientDetailCtrl', ['$scope', '$route', '$mdBottomSheet', 'clientService', 'logService', 'userService', clientDetailCtrl]);
+    .controller('clientDetailCtrl', ['$scope', '$route', '$mdBottomSheet', 'clientService', 'logService', 'userService', 'institutionService', 'roomService', clientDetailCtrl]);
 
     function clientListCtrl($scope, $location, clientService) {
 
@@ -23,11 +23,13 @@
 
     }
 
-    function clientDetailCtrl($scope, $route, $mdBottomSheet, clientService, logService, userService) {
+    function clientDetailCtrl($scope, $route, $mdBottomSheet, clientService, logService, userService, institutionService, roomService) {
 
         $scope.client = clientService.get({id:$route.current.params.id}, function (client) {
-            $scope.assistants = userService.query({'institution._id':client.institution._id, roles:['assistant', 'admin', 'nurse']});
+            $scope.assistants = userService.query({institution:client.institution._id, roles:['assistant', 'admin', 'nurse']});
         });
+
+        $scope.institutions = institutionService.query({limit:1000});
 
         $scope.$watch('client', function (newValue, oldValue) {
             if (oldValue.$resolved) {
@@ -62,6 +64,10 @@
             if(!log._id) {
                 $scope.logs.push(log);
             }
+        };
+
+        $scope.getRooms = function () {
+            return roomService.query({institution:$scope.client.institution._id, limit:1000}).$promise;
         };
     }
 

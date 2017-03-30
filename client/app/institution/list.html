@@ -26,6 +26,9 @@
 
                 <md-table-pagination md-limit="query.limit" md-limit-options="[20, 50, 100]" md-page="query.page" md-total="{{ institutions.$total }}" md-on-paginate="getInstitutions" md-page-select md-label="{of:'/', page:'页码', rowsPerPage:'每页条数'}"></md-table-pagination>
             </md-card>
+            <md-button ng-href="#!/institution/create" class="md-fab md-fab-corner">
+                <md-icon>add</md-icon>
+            </md-button>
         </div>
     </div>
 </div>

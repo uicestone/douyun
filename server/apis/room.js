@@ -12,6 +12,7 @@ module.exports = (router) => {
             // save the room and check for errors
             room.save().then(room => {
                 res.json(room);
+                // TODO 更新机构床位数
             }).catch(err => {
                 console.error(err);
                 res.status(500);
@@ -32,7 +33,7 @@ module.exports = (router) => {
             }
 
             if(req.query.institution) {
-                query.find({'institution._id': institution});
+                query.find({'institution._id': req.query.institution});
             }
             else if(req.user.roles.indexOf('admin') === -1) {
                 query.find({
@@ -77,6 +78,7 @@ module.exports = (router) => {
         .put((req, res) =>{
             Room.findByIdAndUpdate(req.params.roomId, req.body, {new: true}).then(room => {
                 res.json(room);
+                // TODO 更新机构床位数
             }).catch(err => {
                 console.error(err);
                 res.status(500);
@@ -87,6 +89,7 @@ module.exports = (router) => {
         .delete((req, res) =>{
             Room.findByIdAndRemove(req.params.roomId).then(() => {
                 res.end();
+                // TODO 更新机构床位数
             }).catch(err => {
                 console.error(err);
                 res.status(500);

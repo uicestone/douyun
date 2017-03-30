@@ -11,10 +11,9 @@
                     <label>床位数</label>
                     <input ng-model="room.bedCount">
                 </md-input-container>
-                <md-input-container>
-                    <label>护工</label>
-                    <input ng-model="room.assistant">
-                </md-input-container>
+                <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:assistantSearchText" md-search-text="assistantSearchText" md-item-text="assistant.name" md-selected-item="room.assistant" md-min-length="0" md-no-cache="true">
+                    <span>{{ assistant.name }}</span>
+                </md-autocomplete>
             </form>
         </div>
         <md-button ng-click="updateRoom(room)" class="md-fab md-fab-corner">
