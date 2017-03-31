@@ -7,6 +7,11 @@
                 width: 60px; // 59 + 1 (border)
             } 
 
+            .logo-img {
+                width: 40px;
+                margin-right: 0;
+            }
+
             .logo-text {
                 display: none;
             }           
@@ -71,6 +76,11 @@
 
             .logo-icon {
                 font-size: 19px;
+            }
+            .logo-img {
+                width: 50px;
+                vertical-align: text-bottom;
+                margin-right: 5px;
             }
             .logo-text {}
 
