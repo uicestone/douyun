@@ -2,6 +2,7 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
+const compression = require('compression');
 const mongoose    = require('mongoose');
 const app         = express();
 const router      = express.Router();
@@ -18,6 +19,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.raw({type:'bin'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(compression());
 
 require('./server/apis')(app, router);
 

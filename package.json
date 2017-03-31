@@ -17,6 +17,7 @@
   "homepage": "https://github.com/uicestone/douyun#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
     "cors": "^2.8.1",
     "express": "^4.15.2",
     "mongoose": "^4.7.5",
