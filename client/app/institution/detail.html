@@ -39,6 +39,7 @@
                                         <th md-column>床位数</th>
                                         <th md-column>护理对象数</th>
                                         <th md-column>护理人员</th>
+                                        <th md-column>状态</th>
                                     </tr>
                                 </thead>
                                 <tbody md-body>
@@ -47,6 +48,9 @@
                                         <td md-cell>{{ room.bedCount }}</td>
                                         <td md-cell>{{ room.clients.length }}</td>
                                         <td md-cell>{{ room.assistant.name }}</td>
+                                        <td md-cell>
+                                            <a ng-href="#!/room/{{ room._id }}" ng-click="$event.stopPropagation()" class="btn"><md-icon>view_module</md-icon></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -2,10 +2,11 @@
     'use strict';
 
     angular.module('app.room')
-    .controller('roomCtrl', ['$scope', roomCtrl]);
+    .controller('roomStatusCtrl', ['$scope', '$route', 'roomService', 'clientService', roomStatusCtrl]);
 
-    function roomCtrl($scope) {
-
+    function roomStatusCtrl($scope, $route, roomService, clientService) {
+    	$scope.room = roomService.get({id:$route.current.params.id});
+    	$scope.clients = clientService.query({'room._id':$route.current.params.id, limit:1000});
     }
 
 })(); 

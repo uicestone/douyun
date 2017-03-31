@@ -23,10 +23,14 @@
     .card-action > a {
         margin-right: $card-padding;
         text-transform: uppercase;
+        &.md-button {
+            margin: -$card-padding 0;
+        }
     }
 
     .card-image {
         position: relative;
+        min-height: 73px;
 
         img {
             border-radius: $border-radius-card $border-radius-card 0 0;
@@ -73,6 +77,8 @@
                 width: 90px;
                 height: 90px;
                 border-radius: 50%;
+                object-fit: cover;
+                object-position: 50% 33%;
             }
 
             &.profile-img-sm {
@@ -92,10 +98,15 @@
             z-index: 1;
             margin-top: -65px;
         }
+
+        md-list {
+            margin: (-$card-padding) (-$card-padding/2);
+        }
     }
 
     .card-action {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
+        text-align: right;
         padding: $card-padding;
         &.no-border {
             border: 0;

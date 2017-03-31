@@ -96,3 +96,15 @@ md-bottom-sheet {
         bottom: 4.8em;
     }
 }
+
+md-list label {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+md-list-item .md-avatar,
+md-list-item .md-list-item-inner .md-avatar {
+    object-fit: cover;
+    object-position: 50% 25%;
+}
