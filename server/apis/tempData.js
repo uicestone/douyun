@@ -40,15 +40,16 @@ module.exports = (router) => {
                 const data = line.slice(10, line.length);
                 const temp = (data[22] * 256 + data[23]) / 10;
                 const humi = (data[24] * 256 + data[25]) / 10;
-                const distance = data[26];
+                const battery = data[26];
+                const distance = data[27];
                 const brand = data.slice(2, 9).map(byte => String.fromCharCode(byte)).join('');
 
-                return {length, type, mac, rssi, temp, humi, distance, brand};
+                return {length, type, mac, rssi, temp, humi, distance, brand, battery};
 
             }).filter(line => {
                 return line.type === 0 && line.brand === 'XuXuKou';
             }).map(line => {
-                // console.log(line.mac, line.temp, line.humi, line.distance);
+                // console.log(line.mac, line.temp, line.humi, line.battery, line.distance);
             });
 
             // console.log('===============================');
