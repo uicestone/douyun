@@ -105,6 +105,21 @@ md-list label {
 
 md-list-item .md-avatar,
 md-list-item .md-list-item-inner .md-avatar {
+
     object-fit: cover;
     object-position: 50% 25%;
+
+    &.contain {
+        object-fit: contain;
+        object-position: 50% 50%;
+    }
+}
+
+md-list-item md-icon {
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+md-list-item.md-2-line md-icon {
+    margin-top: 21px;
 }

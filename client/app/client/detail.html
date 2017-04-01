@@ -1,28 +1,80 @@
 <div class="page" ng-controller="clientDetailCtrl">
     <div class="row ui-section">
-        <div class="col-lg-8 clearfix">
+        <div class="col-lg-12">
             <h2 class="section-header">{{ client.name }}</h2>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <div class="card bg-white">
+                <div class="card-image bg-success">
+                    <div class="card-title"></div>
+                </div>
+                <div class="card-content">
+                    <a class="card-profile-img pull-right" href="javascript:;">
+                        <img ng-if="client.age" ng-src="assets/images/assets/avatar-{{ client.age % 4 }}.jpg" alt="">
+                    </a>
+                    <md-list>
+                        <md-list-item class="md-2-line">
+                            <md-icon>autorenew</md-icon>
+                            <div class="md-list-item-text">
+                                <h3>今日更换：3 次</h3>
+                                <p>上次更换：16:30</p>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-2-line">
+                            <md-icon>opacity</md-icon>
+                            <div class="md-list-item-text">
+                                <h3>
+                                    <i class="fa fa-thermometer-half"></i> 13℃
+                                    <i class="fa fa-tint"></i> 67%
+                                </h3>
+                                <p>当前状态良好</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <div class="card-action" style="text-align:left">
+                    <!-- <img ng-if="client.age" ng-src="assets/images/assets/avatar-{{ client.age % 4 }}.jpg"> -->
+                    <md-list>
+                        <md-list-item class="md-2-line">
+                            <img class="md-avatar contain" src="assets/images/logo.png">
+                            <div class="md-list-item-text">
+                                <h3>传感器</h3>
+                                <p>AB:CD:12:34:56:78</p>
+                            </div>
+                            <div class="md-secondary label label-info">已绑定</div>
+                        </md-list-item>
+                    </md-list>
+                    <!-- <md-button ng-href="#!/client/{{ client._id }}" class="btn">
+                        <md-icon>autorenew</md-icon>
+                        更换
+                    </md-button>
+                    <md-button ng-href="#!/client/{{ client._id }}" class="btn">
+                        <md-icon>view_list</md-icon>
+                        详情
+                    </md-button> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
             <md-tabs md-border-bottom md-dynamic-height>
                 <md-tab label="概况">
                     <md-card layout-padding>
-                        <form layout="row" layout-padding>
-                            <div flex layout="column">
+                        <form layout="row" layout-padding layout-wrap>
+                            <div flex="50" layout="column">
                                 <md-input-container>
                                     <label>姓名</label>
                                     <input ng-model="client.name">
                                 </md-input-container>
                                 <md-input-container>
+                                    <label>性别</label>
+                                    <input ng-model="client.gender">
+                                </md-input-container>
+                                <md-input-container>
                                     <label>年龄</label>
                                     <input ng-model="client.age">
                                 </md-input-container>
-                                <md-input-container>
-                                    <label>疾病史</label>
-                                    <input ng-model="client.history">
-                                </md-input-container>
                             </div>
-                            <div flex layout="column">
+                            <div flex="50" layout="column">
                                 <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
                                     <span>{{institution.name}}</span>
                                 </md-autocomplete>
@@ -34,6 +86,10 @@
                                     <input ng-model="client.room.bedNum">
                                 </md-input-container>
                             </div>
+                            <md-input-container flex>
+                                <label>疾病史</label>
+                                <textarea ng-model="client.history" rows="3"></textarea>
+                            </md-input-container>                                
                         </form>
                     </md-card>
                     <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>

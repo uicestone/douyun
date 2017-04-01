@@ -111,6 +111,9 @@
         &.no-border {
             border: 0;
         }
+        md-list {
+            margin: (-$card-padding) (-$card-padding/2);
+        }
     }
 
     .card-reveal {
