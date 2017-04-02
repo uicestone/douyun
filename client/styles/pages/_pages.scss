@@ -30,7 +30,9 @@
 
 .page {
     padding: 15px 30px;
-
+    @media (max-width:$screen-sm) {
+        padding: 15px;
+    }
     > .ui-section:last-child {
         margin-bottom: 0;
     }

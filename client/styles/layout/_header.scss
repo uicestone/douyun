@@ -253,6 +253,13 @@
                 }
             }
 
+            .nav-user {
+                @media (max-width:$screen-sm) {
+                    position: absolute;
+                    top: 0;
+                }
+            }
+
             .search-box {
                 // max-height: $header_height;
                 max-width: 180px;
