@@ -37,39 +37,15 @@
           data-ng-class=" { 'layout-boxed': main.layout === 'boxed', 
                             'nav-collapsed-min': main.isMenuCollapsed
           } ">
-        <!--[if lt IE 9]>
-            <div class="lt-ie9-bg">
-                <p class="browsehappy">You are using an <strong>outdated</strong> browser.</p>
-                <p>Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-            </div>
-        <![endif]-->
 
         <div id="loader-container"></div>
 
-        <header data-ng-include=" 'app/layout/header.html' "
-                 id="header"
-                 class="header-container "
-                 data-ng-class="{ 'header-fixed': main.fixedHeader,
-                                  'bg-white': ['11','12','13','14','15','16','21'].indexOf(main.skin) >= 0,
-                                  'bg-dark': main.skin === '31',
-                                  'bg-primary': ['22','32'].indexOf(main.skin) >= 0,
-                                  'bg-success': ['23','33'].indexOf(main.skin) >= 0,
-                                  'bg-info': ['24','34'].indexOf(main.skin) >= 0,
-                                  'bg-warning': ['25','35'].indexOf(main.skin) >= 0,
-                                  'bg-danger': ['26','36'].indexOf(main.skin) >= 0
-                 }"></header>
+        <header data-ng-include=" 'app/layout/header.html' " id="header" class="header-container header-fixed bg-primary"></header>
 
-        <div class="main-container"
-             data-ng-class="{ 'app-nav-horizontal': main.menu === 'horizontal' }">
+        <div class="main-container">
             <aside data-ng-include=" 'app/layout/sidebar.html' "
                    id="nav-container"
-                   class="nav-container"  
-                   data-ng-class="{ 'nav-fixed': main.fixedSidebar,
-                                    'nav-horizontal': main.menu === 'horizontal',
-                                    'nav-vertical': main.menu === 'vertical',
-                                    'bg-white': ['31','32','33','34','35','36'].indexOf(main.skin) >= 0,
-                                    'bg-dark': ['31','32','33','34','35','36'].indexOf(main.skin) < 0
-                   }">
+                   class="nav-container nav-fixed nav-vertical bg-white">
             </aside>
 
             <div id="content" class="content-container">
