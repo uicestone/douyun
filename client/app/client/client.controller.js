@@ -69,6 +69,29 @@
         $scope.getRooms = function () {
             return roomService.query({institution:$scope.client.institution._id, limit:1000}).$promise;
         };
+
+        $scope.chart = {
+            labels: ['4/2', '4/3', '4/4', '4/5', '4/6', '4/7', '4/8'],
+            series: ['更换尿布', '小便次数'],
+            data: [
+                [3, 2, 4, 3, 4, 3, 4],
+                [6, 5, 7, 6, 5, 4, 5]
+            ],
+            options: {
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                },
+                legend: {
+                    display: true
+                }
+            }
+        };
     }
 
 })(); 

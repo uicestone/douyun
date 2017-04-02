@@ -19,6 +19,7 @@
         ,'angular-clipboard'
         ,'as.sortable'
         ,'ngMaterialDatePicker'
+        ,'chart.js'
     ]);
 
 })();
