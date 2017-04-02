@@ -3,7 +3,7 @@
 
     angular.module('app.user')
     .controller('userListCtrl', ['$scope', '$location', 'userService', userListCtrl])
-    .controller('userDetailCtrl', ['$scope', 'userService', userDetailCtrl]);
+    .controller('userDetailCtrl', ['$scope', '$route', 'userService', userDetailCtrl]);
 
     function userListCtrl($scope, $location, userService) {
 
@@ -27,7 +27,11 @@
 
     function userDetailCtrl($scope, $route, userService) {
 
-        $scope.user = userService.get({id:$route.params.id});
+        $scope.user = userService.get({id:$route.current.params.id});
+
+        $scope.sendMessage = function (user, type) {
+            user.$sendMessage({type: type});
+        };
 
     }
 

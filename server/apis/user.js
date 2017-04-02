@@ -109,5 +109,10 @@ module.exports = (router) => {
             });
         });
 
+    router.route('/user/:userId/message')
+        .post((req, res) => {
+            require('../util/wechat.js')(req.query.type);
+        });
+
     return router;
 }

@@ -106,7 +106,8 @@
             update: {method: 'PUT'},
             auth: {method: 'GET', url: api + 'auth/user'},
             login: {method: 'POST', url: api + 'auth/login'},
-            logout: {method: 'GET', 'url': api + 'auth/logout'}
+            logout: {method: 'GET', 'url': api + 'auth/logout'},
+            sendMessage: {method: 'POST', url: api + 'user/:id/message'}
         });
         
         // Angular mix PUT and POST methot to $save,

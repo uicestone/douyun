@@ -1,0 +1,15 @@
+<div class="page" ng-controller="userDetailCtrl">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{ user.name }}</h2>
+        </div>
+        <div class="col-md-12">
+            <md-button class="md-fab" ng-click="sendMessage(user, 'notice')">
+                <md-icon>send</md-icon>
+            </md-button>
+            <md-button class="md-fab md-primary" ng-click="sendMessage(user, 'report')">
+                <md-icon>send</md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>
