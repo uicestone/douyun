@@ -2,8 +2,9 @@ $TL_content_bg:         rgba(255,255,255,.9);
 
 .ui-timline-container {
     padding: 15px;
-
-
+    @media (max-width: $screen-sm) {
+        padding: 20px;
+    }
 }
 
 .ui-timline-left {
