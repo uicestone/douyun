@@ -123,3 +123,16 @@ md-list-item md-icon {
 md-list-item.md-2-line md-icon {
     margin-top: 21px;
 }
+
+md-autocomplete {
+    min-width: 0;
+}
+
+md-autocomplete[md-floating-label] {
+    margin-bottom: 2px;
+}
+
+[disabled] md-input-container .md-input,
+md-input-container .md-input[disabled] {
+    text-overflow: ellipsis;
+}

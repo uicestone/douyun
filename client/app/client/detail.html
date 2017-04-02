@@ -61,30 +61,34 @@
                     <md-card layout-padding>
                         <form layout="row" layout-padding layout-wrap>
                             <div flex="50" layout="column">
-                                <md-input-container>
-                                    <label>姓名</label>
-                                    <input ng-model="client.name">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>性别</label>
-                                    <input ng-model="client.gender">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>年龄</label>
-                                    <input ng-model="client.age">
-                                </md-input-container>
+                                <fieldset>
+                                    <md-input-container>
+                                        <label>姓名</label>
+                                        <input ng-model="client.name">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>性别</label>
+                                        <input ng-model="client.gender">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>年龄</label>
+                                        <input ng-model="client.age">
+                                    </md-input-container>
+                                </fieldset>
                             </div>
                             <div flex="50" layout="column">
-                                <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
-                                    <span>{{institution.name}}</span>
-                                </md-autocomplete>
-                                <md-autocomplete flex md-floating-label="房间" md-items="room in getRooms()" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true">
-                                    <span>{{room.num}}</span>
-                                </md-autocomplete>
-                                <md-input-container>
-                                    <label>床位</label>
-                                    <input ng-model="client.room.bedNum">
-                                </md-input-container>
+                                <fieldset>
+                                    <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
+                                        <span>{{institution.name}}</span>
+                                    </md-autocomplete>
+                                    <md-autocomplete flex md-floating-label="房间" md-items="room in getRooms()" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true">
+                                        <span>{{room.num}}</span>
+                                    </md-autocomplete>
+                                    <md-input-container>
+                                        <label>床位</label>
+                                        <input ng-model="client.room.bedNum">
+                                    </md-input-container>
+                                </fieldset>
                             </div>
                             <md-input-container flex>
                                 <label>疾病史</label>
