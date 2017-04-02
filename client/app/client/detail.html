@@ -58,7 +58,7 @@
         <div class="col-md-8">
             <md-tabs md-border-bottom md-dynamic-height>
                 <md-tab label="概况">
-                    <md-card layout-padding>
+                    <div class="card bg-white" layout-padding>
                         <form layout="row" layout-padding layout-wrap>
                             <div flex="50" layout="column">
                                 <fieldset>
@@ -95,7 +95,7 @@
                                 <textarea ng-model="client.history" rows="3"></textarea>
                             </md-input-container>                                
                         </form>
-                    </md-card>
+                    </div>
                     <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
                 </md-tab>
                 <md-tab label="记录">
@@ -123,9 +123,9 @@
                     <md-button ng-click="editLog(log)" class="md-fab md-fab-corner"><md-icon>add</md-icon></md-button>
                 </md-tab>
                 <md-tab label="统计">
-                    <md-card layout-padding>
+                    <div class="card bg-white" layout-padding>
                         <canvas id="chart" class="chart chart-bar" chart-data="chart.data" chart-labels="chart.labels" chart-series="chart.series" chart-options="chart.options" chart-dataset-override="chart.datasetOverride"></canvas>
-                    </md-card>
+                    </div>
                 </md-tab>
             </md-tabs>
         </div>
