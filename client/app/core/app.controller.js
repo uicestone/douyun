@@ -18,12 +18,12 @@
                 $window.localStorage.removeItem('token');
             });
 
-            $location.search({intended:$location.url()}).path('signin');
+            $location.search({intended:$location.url() || null}).path('signin');
         };
 
         $scope.$watch('user', function(user) {
             if(user.$resolved !== false && !user._id && $location.path() !== '/signin') {
-                $location.search({intended:$location.url()}).path('signin');
+                $location.search({intended:$location.url() || null}).path('signin');
             }
             else if(user._id && $location.path() === '/signin') {
                 $location.url($location.search().intended || '/');
