@@ -26,8 +26,8 @@
         .constant('userRolesConstant', [
             {name: 'admin', label: '管理员', abilities: ['list-institution', 'list-user', 'list-client']},
             {name: 'nurse', label: '护士', abilities: ['view-single-institution', 'list-user', 'list-client']},
-            {name: 'assistant', label: '护工', abilities: []},
-            {name: 'family', label: '家属', abilities: []}
+            {name: 'assistant', label: '护工', abilities: ['list-client']},
+            {name: 'family', label: '家属', abilities: ['view-single-client']}
         ]);
 
     function httpInterceptorService($q, $window, $location, $injector) {
