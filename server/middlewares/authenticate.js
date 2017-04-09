@@ -2,12 +2,7 @@ const User = require('../models/user');
 
 module.exports = function(req, res, next) {
 
-    if(req.originalUrl === '/api/auth/login') {
-        next();
-        return;
-    }
-
-    if(req.originalUrl === '/api/temp-data') {
+    if(['/api/auth/login', '/api/temp-data', '/api/wechat'].indexOf(req._parsedUrl.pathname) > -1 ) {
         next();
         return;
     }

@@ -19,6 +19,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.raw({type:'bin'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.query());
 app.use(compression());
 
 require('./server/apis')(app, router);

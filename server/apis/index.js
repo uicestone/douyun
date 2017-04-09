@@ -13,5 +13,6 @@ module.exports = (app, router) => {
     router = require('./user.js')(router);
     router = require('./auth.js')(router);
     router = require('./tempData.js')(router);
+    router = require('./wechat.js')(router);
     app.use('/api', cors({exposedHeaders:['items-total', 'items-start', 'items-end']}), authenticate, router);
 };

@@ -23,7 +23,9 @@
     "mongoose": "^4.7.5",
     "node-env-file": "^0.1.8",
     "socket.io": "^1.7.3",
-    "wechat-api": "^1.32.0"
+    "wechat": "^2.1.0",
+    "wechat-api": "^1.32.0",
+    "wechat-oauth": "^1.2.1"
   },
   "devDependencies": {
     "browser-sync": "^2.12.10",
