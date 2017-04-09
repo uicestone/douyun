@@ -134,8 +134,10 @@ md-autocomplete {
 
 md-autocomplete[md-floating-label] {
     margin-bottom: 2px;
+    @media (min-width: $screen-sm) {
+        margin-bottom: -3px;
+    }
 }
-
 [disabled] md-input-container .md-input,
 md-input-container .md-input[disabled] {
     text-overflow: ellipsis;

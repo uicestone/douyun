@@ -19,7 +19,9 @@
                             <tr md-row ng-repeat="user in users" ng-click="showUserDetail(user)">
                                 <td md-cell>{{ user.name }}</td>
                                 <td md-cell>{{ user.mobile }}</td>
-                                <td md-cell>{{ user.roles }}</td>
+                                <td md-cell>
+                                    <span ng-repeat="role in user.roles" class="label label-primary">{{ roleLabels[role] }}</span>
+                                </td>
                                 <td md-cell>{{ user.institution.name }}</td>
                             </tr>
                         </tbody>

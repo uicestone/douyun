@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('app.user')
-    .controller('userListCtrl', ['$scope', '$location', '$mdBottomSheet', 'userService', 'institutionService', userListCtrl])
+    .controller('userListCtrl', ['$scope', '$location', '$mdBottomSheet', 'userService', 'institutionService', 'userRolesConstant', userListCtrl])
     .controller('userDetailCtrl', ['$scope', '$route', 'userService', 'institutionService', 'logService', 'userRolesConstant', userDetailCtrl])
     .controller('userBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'userRolesConstant', 'user', 'users', 'institutions', userBottomSheetCtrl]);
 
-    function userListCtrl($scope, $location, $mdBottomSheet, userService, institutionService) {
+    function userListCtrl($scope, $location, $mdBottomSheet, userService, institutionService, userRolesConstant) {
 
         $scope.query = angular.extend({page:1, limit: 20}, $location.search());
 
@@ -39,6 +39,12 @@
                 locals: {user: user, users: $scope.users, institutions: $scope.institutions}
             });
         };
+
+        $scope.roleLabels = {};
+
+        userRolesConstant.forEach(function (role) {
+            $scope.roleLabels[role.name] = role.label;
+        });
 
     }
 

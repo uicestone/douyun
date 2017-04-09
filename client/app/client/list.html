@@ -11,6 +11,7 @@
                             <tr md-row>
                                 <th md-column>姓名</th>
                                 <th md-column>年龄</th>
+                                <th md-column>护理人员</th>
                                 <th md-column>护理机构</th>
                             </tr>
                         </thead>
@@ -18,6 +19,7 @@
                             <tr md-row ng-repeat="client in clients" ng-click="showClientDetail(client)">
                                 <td md-cell>{{ client.name }}</td>
                                 <td md-cell>{{ client.age }}</td>
+                                <td md-cell>{{ client.assistant.name }}</td>
                                 <td md-cell>{{ client.institution.name }}</td>
                             </tr>
                         </tbody>

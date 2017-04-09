@@ -43,6 +43,14 @@
                             </div>
                             <div class="md-secondary label label-info">已绑定</div>
                         </md-list-item>
+                        <md-list-item class="md-2-line">
+                            <img class="md-avatar" src="assets/images/assets/nurse.jpg">
+                            <div class="md-list-item-text">
+                                <h3>护理人员</h3>
+                                <p>{{ client.assistant.name }}</p>
+                            </div>
+                            <div class="md-secondary label label-info">在岗</div>
+                        </md-list-item>
                     </md-list>
                     <!-- <md-button ng-href="#!/client/{{ client._id }}" class="btn">
                         <md-icon>autorenew</md-icon>
@@ -60,8 +68,8 @@
                 <md-tab label="概况">
                     <div class="card bg-white" layout-padding>
                         <form layout="row" layout-padding layout-wrap>
-                            <div flex="50" layout="column">
-                                <fieldset>
+                            <div flex="50">
+                                <fieldset layout="column">
                                     <md-input-container>
                                         <label>姓名</label>
                                         <input ng-model="client.name">
@@ -76,8 +84,8 @@
                                     </md-input-container>
                                 </fieldset>
                             </div>
-                            <div flex="50" layout="column">
-                                <fieldset>
+                            <div flex="50">
+                                <fieldset layout="column">
                                     <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
                                         <span>{{institution.name}}</span>
                                     </md-autocomplete>
