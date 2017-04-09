@@ -1,0 +1,45 @@
+<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader ng-cloak>编辑护理人员</md-subheader>
+    <div layout="row">
+        <div flex="30" layout="column">
+            <md-autocomplete md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="user.institution" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
+                <span>{{institution.name}}</span>
+            </md-autocomplete>
+            <md-input-container>
+                <label>工号</label>
+                <input ng-model="user.num">
+            </md-input-container>
+            <md-input-container>
+                <label>姓名</label>
+                <input ng-model="user.name">
+            </md-input-container>
+            <md-input-container>
+                <label>性别</label>
+                <input ng-model="user.gender">
+            </md-input-container>
+        </div>
+        <div flex="30" layout="column">
+            <md-input-container>
+                <label>用户名</label>
+                <input ng-model="user.username">
+            </md-input-container>
+            <md-input-container>
+                <label>重置密码</label>
+                <input ng-model="user.password">
+            </md-input-container>
+            <md-input-container>
+                <label>手机号</label>
+                <input ng-model="user.mobile">
+            </md-input-container>
+            <md-input-container>
+                <label>角色</label>
+                <md-select ng-model="user.roles[0]">
+                    <md-option ng-repeat="role in roles" value="{{ role.name }}">{{ role.label }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <md-button ng-click="updateUser(user)" class="md-fab md-fab-corner">
+            <md-icon>done</md-icon>
+        </md-button>
+    </div>
+</md-bottom-sheet>

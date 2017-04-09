@@ -2,10 +2,11 @@
     'use strict';
 
     angular.module('app.user')
-    .controller('userListCtrl', ['$scope', '$location', 'userService', userListCtrl])
-    .controller('userDetailCtrl', ['$scope', '$route', 'userService', 'institutionService', 'logService', 'userRolesConstant', userDetailCtrl]);
+    .controller('userListCtrl', ['$scope', '$location', '$mdBottomSheet', 'userService', 'institutionService', userListCtrl])
+    .controller('userDetailCtrl', ['$scope', '$route', 'userService', 'institutionService', 'logService', 'userRolesConstant', userDetailCtrl])
+    .controller('userBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'userRolesConstant', 'user', 'users', 'institutions', userBottomSheetCtrl]);
 
-    function userListCtrl($scope, $location, userService) {
+    function userListCtrl($scope, $location, $mdBottomSheet, userService, institutionService) {
 
         $scope.query = angular.extend({page:1, limit: 20}, $location.search());
 
@@ -19,29 +20,45 @@
 
         $scope.getUser();
 
+        $scope.institutions = institutionService.query({limit:1000});
+
         $scope.showUserDetail = function (user) {
             $location.url('/user/' + user._id);
+        };
+
+        $scope.editUser = function (user) {
+            if(!user) {
+                user = new userService();
+                user.roles = [];
+                user.institution = $scope.institution;
+            }
+
+            $mdBottomSheet.show({
+                templateUrl: 'app/user/user-bottom-sheet.html',
+                controller: 'userBottomSheetCtrl',
+                locals: {user: user, users: $scope.users, institutions: $scope.institutions}
+            });
         };
 
     }
 
     function userDetailCtrl($scope, $route, userService, institutionService, logService, userRolesConstant) {
 
-        $scope.roles = userRolesConstant;
-
         $scope.user = userService.get({id:$route.current.params.id}, function (user) {
             $scope.assistants = userService.query({institution:user.institution._id, roles:['assistant', 'admin', 'nurse']});
         });
 
+        $scope.roles = userRolesConstant;
+
         $scope.institutions = institutionService.query({limit:1000});
+
+        $scope.logs = logService.query({'assistant':$route.current.params.id, limit:1000});
 
         $scope.$watch('user', function (newValue, oldValue) {
             if (oldValue.$resolved) {
                 $scope.userChanged = true;
             }
         }, true);
-
-        $scope.logs = logService.query({'assistant':$route.current.params.id, limit:1000});
 
         $scope.updateUser = function (user) {
             user.$save();
@@ -93,6 +110,20 @@
                 legend: {
                     display: true
                 }
+            }
+        };
+    }
+
+    function userBottomSheetCtrl ($scope, $mdBottomSheet, $mdToast, userRolesConstant, user, users, institutions) {
+        $scope.user = user;
+        $scope.users = users;
+        $scope.institutions = institutions;
+        $scope.roles = userRolesConstant;
+        $scope.updateUser = function (user) {
+            $mdBottomSheet.hide();
+            user.$save();
+            if(!user._id) {
+                $scope.users.push(user);
             }
         };
     }
