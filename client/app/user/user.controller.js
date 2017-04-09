@@ -3,7 +3,7 @@
 
     angular.module('app.user')
     .controller('userListCtrl', ['$scope', '$location', 'userService', userListCtrl])
-    .controller('userDetailCtrl', ['$scope', '$route', 'userService', userDetailCtrl]);
+    .controller('userDetailCtrl', ['$scope', '$route', 'userService', 'institutionService', 'logService', 'userRolesConstant', userDetailCtrl]);
 
     function userListCtrl($scope, $location, userService) {
 
@@ -25,14 +25,76 @@
 
     }
 
-    function userDetailCtrl($scope, $route, userService) {
+    function userDetailCtrl($scope, $route, userService, institutionService, logService, userRolesConstant) {
 
-        $scope.user = userService.get({id:$route.current.params.id});
+        $scope.roles = userRolesConstant;
 
-        $scope.sendMessage = function (user, type) {
-            user.$sendMessage({type: type});
+        $scope.user = userService.get({id:$route.current.params.id}, function (user) {
+            $scope.assistants = userService.query({institution:user.institution._id, roles:['assistant', 'admin', 'nurse']});
+        });
+
+        $scope.institutions = institutionService.query({limit:1000});
+
+        $scope.$watch('user', function (newValue, oldValue) {
+            if (oldValue.$resolved) {
+                $scope.userChanged = true;
+            }
+        }, true);
+
+        $scope.logs = logService.query({'assistant':$route.current.params.id, limit:1000});
+
+        $scope.updateUser = function (user) {
+            user.$save();
         };
 
+        $scope.editLog = function (log) {
+            if(!log) {
+                log = new logService();
+                log.user = $scope.user;
+            }
+
+            $scope.log = log;
+
+            $mdBottomSheet.show({
+                templateUrl: 'app/user/log-bottom-sheet.html',
+                scope: $scope,
+                preserveScope: true
+            });
+        };
+
+        $scope.updateLog = function (log) {
+            $mdBottomSheet.hide();
+            log.$save();
+            if(!log._id) {
+                $scope.logs.push(log);
+            }
+        };
+
+        $scope.getRooms = function () {
+            return roomService.query({institution:$scope.user.institution._id, limit:1000}).$promise;
+        };
+
+        $scope.chart = {
+            labels: ['4/2', '4/3', '4/4', '4/5', '4/6', '4/7', '4/8'],
+            series: ['更换尿布'],
+            data: [
+                [9, 14, 15, 11, 12, 10, 10]
+            ],
+            options: {
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                },
+                legend: {
+                    display: true
+                }
+            }
+        };
     }
 
 })(); 

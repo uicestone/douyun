@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     username: String,
-    password: String,
+    password: {type: String, select: false},
     token: String,
     roles: [String],
     name: String,
+    gender: String,
     mobile: String,
     num: String,
     institution: {_id: Schema.ObjectId, name: String}

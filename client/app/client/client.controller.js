@@ -37,7 +37,7 @@
             }
         }, true);
 
-        $scope.logs = logService.query({'client._id':$scope.client._id, limit:1000});
+        $scope.logs = logService.query({'client':$route.current.params.id, limit:1000});
 
         $scope.updateClient = function (client) {
             client.$save();

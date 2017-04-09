@@ -97,6 +97,10 @@ md-bottom-sheet {
     }
 }
 
+md-tab-content .md-button.md-fab.md-fab-corner {
+    position: absolute;
+}
+
 md-list label {
     color: #888;
     font-size: 12px;

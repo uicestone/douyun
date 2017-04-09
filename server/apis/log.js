@@ -31,6 +31,14 @@ module.exports = (router) => {
                 skip = (req.query.page - 1) * limit;
             }
 
+            if(req.query.assistant) {
+                query.find({'assistant._id': req.query.assistant});
+            }
+
+            if(req.query.client) {
+                query.find({'client._id': req.query.client});
+            }
+
             query.count()
             .then((total) => {
                 return Promise.all([total,
