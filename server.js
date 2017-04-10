@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.query());
 app.use(compression());
 
-require('./server/apis')(app, router);
+require('./server/apis')(app, router, io);
 
 app.use(express.static('dist'));
 
@@ -39,8 +39,4 @@ const port = process.env.PORT_HTTP;
 
 httpServer.listen(port, () => {
     console.log(`[${new Date()}] HTTP server listening port: ${port}`);
-});
-
-io.on('connection', (socket) => {
-    console.log('socket connected');
 });

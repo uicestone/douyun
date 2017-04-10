@@ -1,7 +1,7 @@
 const Buffer = require('buffer').Buffer;
 const Bean = require('../models/bean.js');
 
-module.exports = (router) => {
+module.exports = (router, io) => {
     
     router.route('/temp-data').post((req, res) => {
 
@@ -77,6 +77,8 @@ module.exports = (router) => {
                     }).exec();
 
                 });
+
+                io.emit('temp data update', line);
                 // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
             });
 

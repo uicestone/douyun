@@ -13,6 +13,7 @@
     };
 
     angular.module('app')
+        .service('socketIoService', socketIoService)
         .service('httpInterceptorService', ['$q', '$window', '$location', '$injector', httpInterceptorService])
         .service('authService', ['$window', 'userService', authService])
         .service('userService', ['$resource', 'userRolesConstant', userService])
@@ -29,6 +30,11 @@
             {name: 'assistant', label: '护工', abilities: ['list-client']},
             {name: 'family', label: '家属', abilities: ['view-single-client']}
         ]);
+
+    function socketIoService () {
+        var socket = new io(api.replace('/api/', ''));
+        return socket;
+    }
 
     function httpInterceptorService($q, $window, $location, $injector) {
         return {

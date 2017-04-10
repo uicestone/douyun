@@ -24,8 +24,8 @@
                             <md-icon>opacity</md-icon>
                             <div class="md-list-item-text">
                                 <h3>
-                                    <i class="fa fa-thermometer-half"></i> 13℃
-                                    <i class="fa fa-tint"></i> 67%
+                                    <i class="fa fa-thermometer-half"></i> {{ client.bean.temp || '-' }}℃
+                                    <i class="fa fa-tint"></i> {{ client.bean.humi || '-' }}%
                                 </h3>
                                 <p>当前状态良好</p>
                             </div>
@@ -39,9 +39,12 @@
                             <img class="md-avatar contain" src="assets/images/logo.png">
                             <div class="md-list-item-text">
                                 <h3>传感器</h3>
-                                <p>AB:CD:12:34:56:78</p>
+                                <p>{{ client.bean.mac || nearByBean.mac || '未绑定' }}</p>
                             </div>
-                            <div class="md-secondary label label-info">已绑定</div>
+                            <div class="md-secondary">
+                                <span ng-if="client.bean" class="label label-info">已绑定</span>
+                                <md-button ng-if="!client.bean && nearByBean" ng-click="bindBean(nearByBean, client)" class="md-primary md-raised">绑定</md-button>
+                            </div>
                         </md-list-item>
                         <md-list-item class="md-2-line">
                             <img class="md-avatar" src="assets/images/assets/nurse.jpg">
@@ -49,7 +52,7 @@
                                 <h3>护理人员</h3>
                                 <p>{{ client.assistant.name }}</p>
                             </div>
-                            <div class="md-secondary label label-info">在岗</div>
+                            <div class="md-secondary label label-success">在岗</div>
                         </md-list-item>
                     </md-list>
                     <!-- <md-button ng-href="#!/client/{{ client._id }}" class="btn">

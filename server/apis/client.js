@@ -1,4 +1,5 @@
 const Client = require('../models/client.js');
+const Bean = require('../models/bean.js');
 
 module.exports = (router) => {
     // Client CURD
@@ -74,9 +75,23 @@ module.exports = (router) => {
             });
         })
 
-        .put((req, res) =>{
-            Client.findByIdAndUpdate(req.params.clientId, req.body, {new: true}).then(client => {
-                res.json(client);
+        .put((req, res) => {
+
+            new Promise((resolve) => {
+                if (req.body.bean && !req.body.bean._id && req.body.bean.mac) {
+                    Bean.findOne({mac: req.body.bean.mac}).then(bean => {
+                        req.body.bean._id = bean._id;
+                        resolve();
+                    });
+                }
+                else {
+                    resolve();
+                }
+
+            }).then(() => {
+                Client.findByIdAndUpdate(req.params.clientId, req.body, {new: true}).then(client => {
+                    res.json(client);
+                });
             }).catch(err => {
                 console.error(err);
                 res.status(500);

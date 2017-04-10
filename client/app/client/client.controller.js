@@ -3,7 +3,7 @@
 
     angular.module('app.client')
     .controller('clientListCtrl', ['$scope', '$location', 'clientService', clientListCtrl])
-    .controller('clientDetailCtrl', ['$scope', '$route', '$mdBottomSheet', 'clientService', 'logService', 'userService', 'institutionService', 'roomService', clientDetailCtrl]);
+    .controller('clientDetailCtrl', ['$scope', '$route', '$mdBottomSheet', 'clientService', 'logService', 'userService', 'institutionService', 'roomService', 'socketIoService', clientDetailCtrl]);
 
     function clientListCtrl($scope, $location, clientService) {
 
@@ -23,7 +23,7 @@
 
     }
 
-    function clientDetailCtrl($scope, $route, $mdBottomSheet, clientService, logService, userService, institutionService, roomService) {
+    function clientDetailCtrl($scope, $route, $mdBottomSheet, clientService, logService, userService, institutionService, roomService, socketIoService) {
 
         $scope.client = clientService.get({id:$route.current.params.id}, function (client) {
             $scope.assistants = userService.query({institution:client.institution._id, roles:['assistant', 'admin', 'nurse']});
@@ -40,6 +40,27 @@
         $scope.logs = logService.query({'client':$route.current.params.id, limit:1000});
 
         $scope.updateClient = function (client) {
+            client.$save();
+        };
+
+        socketIoService.on('temp data update', function (bean) {
+            if ($scope.client.bean) {
+                if ($scope.client.bean.mac === bean.mac) {
+                    $scope.client.bean = bean;
+                }
+            } else {
+                if (bean.rssi > -50) {
+                    $scope.nearByBean = bean;
+                }
+                else {
+                    $scope.nearByBean = null;
+                }
+            }
+            $scope.$apply();
+        });
+
+        $scope.bindBean = function (bean, client) {
+            client.bean = bean;
             client.$save();
         };
 
