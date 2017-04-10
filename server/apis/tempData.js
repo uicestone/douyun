@@ -48,7 +48,7 @@ module.exports = (router) => {
                 return {length, type, mac, rssi, temp, humi, distance, brand, battery};
 
             }).filter(line => {
-                return line.type === 0 && line.brand === 'XuXuKou';
+                return line.type === 0 && line.brand === 'XuXuKou' && !isNaN(line.temp) && !isNaN(line.humi);
             }).map(line => {
                 Bean.findOne({mac:line.mac}).then(bean => {
                     if (bean) {
