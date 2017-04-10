@@ -42,7 +42,7 @@
                                 <p>{{ client.bean.mac || nearByBean.mac || '未绑定' }}</p>
                             </div>
                             <div class="md-secondary">
-                                <span ng-if="client.bean" class="label label-info">已绑定</span>
+                                <span ng-if="client.bean" class="label label-success">已绑定</span>
                                 <md-button ng-if="!client.bean && nearByBean" ng-click="bindBean(nearByBean, client)" class="md-primary md-raised">绑定</md-button>
                             </div>
                         </md-list-item>
@@ -106,8 +106,8 @@
                                 <textarea ng-model="client.history" rows="3"></textarea>
                             </md-input-container>                                
                         </form>
+                        <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
                     </div>
-                    <md-button ng-click="updateClient(client)" ng-show="clientChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
                 </md-tab>
                 <md-tab label="记录">
                     <div class="ui-timline-container">
