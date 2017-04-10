@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 const beanSchema = new Schema({
     mac: String,
-    records: [{temp: Number, humi: Number, time: Date}]
+    temp: Number,
+    humi: Number,
+    distance: Number,
+    lastUpdatedAt: Date,
+    records: [{temp: Number, humi: Number, distance: Number, updatedAt: Date}]
 });
 
 beanSchema.index({mac:1}, {unique:true});

@@ -1,4 +1,5 @@
 const Buffer = require('buffer').Buffer;
+const Bean = require('../models/bean.js');
 
 module.exports = (router) => {
     
@@ -49,7 +50,25 @@ module.exports = (router) => {
             }).filter(line => {
                 return line.type === 0 && line.brand === 'XuXuKou';
             }).map(line => {
-                // console.log(line.mac, line.temp, line.humi, line.battery, line.distance);
+                Bean.findOne({mac:line.mac}).then(bean => {
+                    if (bean) {
+                        return bean;
+                    }
+                    else {
+                        let bean = new Bean({mac:line.mac});
+                        return bean.save();
+                    }
+                }).then(bean => {
+                    bean.records.push({updatedAt: new Date(), temp: line.temp, humi: line.humi, distance: line.distance});
+                    bean.temp = line.temp;
+                    bean.humi = line.humi;
+                    bean.distance = line.distance;
+                    bean.lastUpdatedAt = new Date();
+                    bean.save();
+                });
+                // create bean if not found
+                // insert record into db
+                // console.log(line.mac, line.temp, line.humi, line.battery, line.rssi);
             });
 
             // console.log('===============================');
