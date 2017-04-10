@@ -51,6 +51,7 @@ module.exports = (router) => {
                 return line.type === 0 && line.brand === 'XuXuKou' && !isNaN(line.temp) && !isNaN(line.humi);
             }).map(line => {
                 Bean.findOne({mac:line.mac}).then(bean => {
+                    // create bean if not found
                     if (bean) {
                         return bean;
                     }
@@ -59,16 +60,24 @@ module.exports = (router) => {
                         return bean.save();
                     }
                 }).then(bean => {
-                    bean.records.push({updatedAt: new Date(), temp: line.temp, humi: line.humi, distance: line.distance});
-                    bean.temp = line.temp;
-                    bean.humi = line.humi;
-                    bean.distance = line.distance;
-                    bean.lastUpdatedAt = new Date();
-                    bean.save();
+                    // update record into db
+                    bean.update({
+                        $set:{
+                            temp: line.temp,
+                            humi: line.humi,
+                            distance: line.distance,
+                            lastUpdatedAt: new Date()
+                        },
+                        $push: {records: {
+                            temp: line.temp,
+                            humi: line.humi,
+                            distance: line.distance,
+                            updatedAt: new Date()
+                        }}
+                    }).exec();
+
                 });
-                // create bean if not found
-                // insert record into db
-                // console.log(line.mac, line.temp, line.humi, line.battery, line.rssi);
+                // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
             });
 
             // console.log('===============================');
