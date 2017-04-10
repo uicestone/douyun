@@ -70,7 +70,7 @@
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row ng-repeat="assistant in assistants" ng-click="editUser(assistant)">
+                                    <tr md-row ng-repeat="assistant in assistants" ng-click="showUserDetail(assistant)">
                                         <td md-cell>{{ assistant.num }}</td>
                                         <td md-cell>{{ assistant.name }}</td>
                                         <td md-cell>{{ assistant.mobile }}</td>
@@ -94,7 +94,7 @@
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row ng-repeat="client in clients" ng-click="editClient(client)">
+                                    <tr md-row ng-repeat="client in clients" ng-click="showClientDetail(client)">
                                         <td md-cell>{{ client.name }}</td>
                                         <td md-cell>{{ client.room.num }}</td>
                                         <td md-cell>{{ client.room.bedNum }}</td>

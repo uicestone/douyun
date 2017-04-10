@@ -3,7 +3,7 @@
 
     angular.module('app.institution')
     .controller('institutionListCtrl', ['$scope', '$location', 'institutionService', institutionListCtrl])
-    .controller('institutionDetailCtrl', ['$scope', '$route', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl])
+    .controller('institutionDetailCtrl', ['$scope', '$route', '$location', '$mdBottomSheet', '$mdToast', 'institutionService', 'roomService', 'userService', 'clientService', institutionDetailCtrl])
     .controller('institutionRoomBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'room', 'rooms', 'assistants', institutionRoomBottomSheetCtrl])
     .controller('institutionNurseBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'userRolesConstant', 'user', 'assistants', institutionNurseBottomSheetCtrl])
     .controller('institutionClientBottomSheetCtrl', ['$scope', '$mdBottomSheet', '$mdToast', 'client', 'clients', 'rooms', 'assistants', institutionClientBottomSheetCtrl]);
@@ -26,7 +26,7 @@
 
     }
 
-    function institutionDetailCtrl($scope, $route, $mdBottomSheet, $mdToast, institutionService, roomService, userService, clientService) {
+    function institutionDetailCtrl($scope, $route, $location, $mdBottomSheet, $mdToast, institutionService, roomService, userService, clientService) {
 
         if ($route.current.params.id === 'create') {
             $scope.institution = new institutionService();
@@ -77,6 +77,10 @@
             });
         };
 
+        $scope.showUserDetail = function (user) {
+            $location.url('/user/' + user._id);
+        };
+
         $scope.editClient = function (client) {
             if(!client) {
                 client = new clientService();
@@ -88,6 +92,10 @@
                 controller: 'institutionClientBottomSheetCtrl',
                 locals: {client: client, clients: $scope.clients, rooms: $scope.rooms, assistants: $scope.assistants}
             });
+        };
+
+        $scope.showClientDetail = function (client) {
+            $location.url('/client/' + client._id);
         };
 
     }
