@@ -67,7 +67,14 @@
         $scope.editLog = function (log) {
             if(!log) {
                 log = new logService();
+
+                if (!$scope.$parent.user.can('manage-user')) {
+                    log.assistant = $scope.$parent.user;
+                }
+                
                 log.client = $scope.client;
+                log.createdAt = new Date();
+                log.title = '更换尿布';
             }
 
             $scope.log = log;
