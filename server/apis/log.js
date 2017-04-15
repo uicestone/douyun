@@ -39,6 +39,13 @@ module.exports = (router) => {
                 query.find({'client._id': req.query.client});
             }
 
+            if(req.query.order) {
+                query.sort(req.query.order);
+            }
+            else{
+                query.sort('-createdAt');
+            }
+
             query.count()
             .then((total) => {
                 return Promise.all([total,
