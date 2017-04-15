@@ -46,7 +46,11 @@
         }, true);
 
         $scope.updateInstitution = function (institution) {
-            institution.$save();
+            institution.$save(function (institution) {
+                if ($location.path() === '/institution/create') {
+                    $location.url('/institution/' + institution._id).replace();
+                }
+            });
             $mdToast.showSimple('护理机构已保存');
         };
 
