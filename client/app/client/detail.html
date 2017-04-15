@@ -126,7 +126,7 @@
                                     <div class="tl-entry">
                                         <div class="tl-time">{{ log.createdAt | date:'yyyy-MM-dd HH:mm' }}</div>
                                         <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info">
-                                            <i class="fa fa-asterisk"></i>
+                                            <i class="fa" ng-class="{'fa-tint':log.title=='排尿', 'fa-refresh':log.title=='更换尿布'}"></i>
                                         </div>
                                         <div class="tl-content">
                                             <h4 class="tl-tile text-primary">
