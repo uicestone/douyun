@@ -13,6 +13,8 @@ module.exports = (router, io) => {
 
         req.on('end', () => {
             
+            res.end();
+
             const buf = Buffer.concat(list);
             const content = buf.toString('hex');
             const lines = content.split('0d0a');
@@ -55,7 +57,40 @@ module.exports = (router, io) => {
                     && !isNaN(line.humi)
                     && !isNaN(line.distance);
 
-            }).map(line => {
+            }).reduce((beans, line) => {
+
+                let bean = beans.filter(bean => bean.mac === line.mac)[0];
+                
+                if (bean) {
+                    bean.data.push(line);
+                    return beans;
+                }
+                else {
+                    beans.push({mac: line.mac, brand: line.brand, battery: line.battery, data: [line]});
+                    return beans;
+                }
+
+            }, []).map(bean => {
+                bean.rssi = bean.temp = bean.humi = bean.distance = 0;
+
+                bean.data.forEach(line => {
+                    bean.rssi += line.rssi;
+                    bean.temp += line.temp;
+                    bean.humi += line.humi;
+                    bean.distance += line.distance;
+                });
+
+                bean.rssi = Math.round(bean.rssi / bean.data.length);
+                bean.temp = Number((bean.temp / bean.data.length).toFixed(1));
+                bean.humi = Number((bean.humi / bean.data.length).toFixed(1));
+                bean.distance = Math.round(bean.distance / bean.data.length);
+
+                delete bean.data;
+
+                return bean;
+            })
+            .map(line => {
+
                 Bean.findOne({mac:line.mac}).then(bean => {
                     // create bean if not found
                     if (bean) {
@@ -67,7 +102,7 @@ module.exports = (router, io) => {
                     }
                 }).then(bean => {
                     // update record into db
-                    bean.update({
+                    return bean.update({
                         $set:{
                             temp: line.temp,
                             humi: line.humi,
@@ -89,8 +124,6 @@ module.exports = (router, io) => {
             });
 
             // console.log('===============================');
-
-            res.end();
         });
     });
 
