@@ -101,14 +101,8 @@ module.exports = (router, io) => {
                         return bean.save();
                     }
                 }).then(bean => {
-                    // update record into db
-                    return bean.update({
-                        $set:{
-                            temp: line.temp,
-                            humi: line.humi,
-                            distance: line.distance,
-                            lastUpdatedAt: new Date()
-                        },
+                    // update record into db                    
+                    bean.update({
                         $push: {records: {
                             temp: line.temp,
                             humi: line.humi,
@@ -117,9 +111,24 @@ module.exports = (router, io) => {
                         }}
                     }).exec();
 
-                });
+                    bean.rssi = line.rssi;
+                    bean.temp = line.temp;
+                    bean.humi = line.humi;
+                    bean.distance = line.distance;
+                    bean.lastUpdatedAt = new Date();
 
-                io.emit('temp data update', line);
+                    return bean.save();
+
+                }).then(bean => {
+                    if (bean.binded) {
+                        io.to(`bean ${bean.mac}`).emit('temp data update', bean);
+                    }
+                    else {
+                        io.to('unbinded beans').emit('temp data update', bean);
+                    }
+                    
+                });
+                
                 // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
             });
 

@@ -40,3 +40,16 @@ const port = process.env.PORT_HTTP;
 httpServer.listen(port, () => {
     console.log(`[${new Date()}] HTTP server listening port: ${port}`);
 });
+
+io.on('connect', socket => {
+    console.log(`socket ${socket.conn.remoteAddress} connected`);
+    socket.on('disconnect', reason => {
+        console.log(`socket ${socket.conn.remoteAddress} disconnected: ${reason}`);
+    }).on('join', data => {
+        socket.join(data);
+        console.log(`socket ${socket.conn.remoteAddress} joined: ${data}`);
+    }).on('leave', data => {
+        socket.leave(data);
+        console.log(`socket ${socket.conn.remoteAddress} left: ${data}`);
+    });
+});
