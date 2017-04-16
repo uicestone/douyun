@@ -27,6 +27,12 @@
 
         $scope.client = clientService.get({id:$route.current.params.id}, function (client) {
             $scope.assistants = userService.query({institution:client.institution._id, roles:['assistant', 'admin', 'nurse']});
+            if (!client.bean) {
+                socketIoService.emit('join', 'unbinded beans');
+            }
+            else {
+                socketIoService.emit('join', 'beans ' + client.bean.mac);
+            }
         });
 
         $scope.institutions = institutionService.query({limit:1000});
@@ -52,7 +58,7 @@
                 if (bean.rssi > -50) {
                     $scope.nearByBean = bean;
                 }
-                else {
+                else if ($scope.nearByBean && bean.mac === $scope.nearByBean.mac) {
                     $scope.nearByBean = null;
                 }
             }
