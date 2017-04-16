@@ -10,14 +10,14 @@
                         <thead md-head md-order="query.order" md-on-reorder="getInstitutions">
                             <tr md-row>
                                 <th md-column>名称</th>
-                                <th md-column>床位数</th>
+                                <th md-column>地址</th>
                                 <th md-column>电话</th>
                             </tr>
                         </thead>
                         <tbody md-body>
                             <tr md-row ng-repeat="institution in institutions" ng-click="showInstitutionDetail(institution)">
                                 <td md-cell>{{ institution.name }}</td>
-                                <td md-cell>{{ institution.beds.length }}</td>
+                                <td md-cell>{{ institution.address }}</td>
                                 <td md-cell>{{ institution.phone }}</td>
                             </tr>
                         </tbody>
