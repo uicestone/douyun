@@ -42,14 +42,14 @@ httpServer.listen(port, () => {
 });
 
 io.on('connect', socket => {
-    console.log(`socket ${socket.conn.remoteAddress} connected`);
+    console.log(`[${new Date()}] socket ${socket.conn.remoteAddress} connected`);
     socket.on('disconnect', reason => {
-        console.log(`socket ${socket.conn.remoteAddress} disconnected: ${reason}`);
+        console.log(`[${new Date()}] socket ${socket.conn.remoteAddress} disconnected: ${reason}`);
     }).on('join', data => {
         socket.join(data);
-        console.log(`socket ${socket.conn.remoteAddress} joined: ${data}`);
+        console.log(`[${new Date()}] socket ${socket.conn.remoteAddress} joined: ${data}`);
     }).on('leave', data => {
         socket.leave(data);
-        console.log(`socket ${socket.conn.remoteAddress} left: ${data}`);
+        console.log(`[${new Date()}] socket ${socket.conn.remoteAddress} left: ${data}`);
     });
 });

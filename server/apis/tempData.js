@@ -132,7 +132,7 @@ module.exports = (router, io) => {
                 // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
             });
 
-            // console.log('===============================');
+            // console.log(`============= ${new Date()} =============\n\n`);
         });
     });
 
