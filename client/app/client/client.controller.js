@@ -27,20 +27,31 @@
 
         $scope.client = clientService.get({id:$route.current.params.id}, function (client) {
             $scope.assistants = userService.query({institution:client.institution._id, roles:['assistant', 'admin', 'nurse']});
-            if (!client.bean) {
-                socketIoService.emit('join', 'unbinded beans');
-            }
-            else {
-                socketIoService.emit('join', 'beans ' + client.bean.mac);
-            }
         });
 
         $scope.institutions = institutionService.query({limit:1000});
 
-        $scope.$watch('client', function (newValue, oldValue) {
-            if (oldValue.$resolved) {
+        $scope.$watch('client', function (client, clientOld) {
+
+            if (clientOld.$resolved) {
                 $scope.clientChanged = true;
             }
+
+            if (client.$resolved && !(client.bean && clientOld.bean && client.bean._id === clientOld.bean._id)) {
+
+                if ($scope.subscribedBeans) {
+                    socketIoService.emit('leave', $scope.subscribedBeans)
+                        .off('reconnect');
+                }
+
+                $scope.subscribedBeans = client.bean ? 'bean ' + client.bean._id : 'unbinded beans'
+                
+                socketIoService.emit('join', $scope.subscribedBeans)
+                    .on('reconnect', function () {
+                        socketIoService.emit('join', $scope.subscribedBeans)
+                    });
+            }
+
         }, true);
 
         $scope.logs = logService.query({'client':$route.current.params.id, limit:1000});
@@ -49,10 +60,19 @@
             client.$save();
         };
 
+        $scope.$on('$destroy', function () {
+            socketIoService.emit('leave', $scope.subscribedBeans);
+            socketIoService.off('temp data update');
+            socketIoService.off('reconnect');
+        });
+
         socketIoService.on('temp data update', function (bean) {
+
+            console.log(bean.mac, bean.rssi, bean.temp + '°C', bean.humi + '%', bean.distance + 'cm');
+            
             if ($scope.client.bean) {
-                if ($scope.client.bean.mac === bean.mac) {
-                    $scope.client.bean = bean;
+                if ($scope.client.bean._id === bean._id) {
+                    angular.extend($scope.client.bean, bean);
                 }
             } else {
                 if (bean.rssi > -50) {

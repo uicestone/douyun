@@ -1,5 +1,7 @@
 const Client = require('../models/client.js');
 const Bean = require('../models/bean.js');
+const Room = require('../models/room.js');
+const Types = require('mongoose').Types;
 
 module.exports = (router) => {
     // Client CURD
@@ -77,22 +79,28 @@ module.exports = (router) => {
 
         .put((req, res) => {
 
-            new Promise((resolve) => {
-                if (req.body.bean && !req.body.bean._id && req.body.bean.mac) {
-                    Bean.findOne({mac: req.body.bean.mac}).then(bean => {
-                        req.body.bean._id = bean._id;
-                        resolve();
-                    });
-                }
-                else {
-                    resolve();
+            Client.findByIdAndUpdate(req.params.clientId, req.body, {new: true})
+            .then(client => {
+
+                // 绑定传感器
+                if (client.bean) {
+                    Bean.findByIdAndUpdate(client.bean._id, {client: client}).exec();
                 }
 
-            }).then(() => {
-                Client.findByIdAndUpdate(req.params.clientId, req.body, {new: true}).then(client => {
-                    res.json(client);
-                });
-            }).catch(err => {
+                res.json(client);
+
+                if (client.room) {
+                    console.log('addToSet', client.room._id, {
+                        _id: Types.ObjectId(client._id),
+                        name: client.name
+                    });
+                    Room.findByIdAndUpdate(client.room._id, {$addToSet: {clients: {
+                        _id: Types.ObjectId(client._id),
+                        name: client.name
+                    }}}).exec();
+                }
+            })
+            .catch(err => {
                 console.error(err);
                 res.status(500);
             });

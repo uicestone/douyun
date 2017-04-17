@@ -120,13 +120,7 @@ module.exports = (router, io) => {
                     return bean.save();
 
                 }).then(bean => {
-                    if (bean.binded) {
-                        io.to(`bean ${bean.mac}`).emit('temp data update', bean);
-                    }
-                    else {
-                        io.to('unbinded beans').emit('temp data update', bean);
-                    }
-                    
+                    io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
                 });
                 
                 // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
