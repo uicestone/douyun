@@ -8,10 +8,10 @@ module.exports = (router, io) => {
         let beaconsPromise;
 
         if (req.body && req.body.cloudbeacon) {
-            beaconsPromise = parseBrightBeacon(req);
+            beaconsPromise = parseBrightBeacon(req, res);
         }
         else {
-            beaconsPromise = parseAprilBrother(req);
+            beaconsPromise = parseAprilBrother(req, res);
         }
 
         beaconsPromise.then(beacons => {
@@ -56,9 +56,9 @@ module.exports = (router, io) => {
         });
     });
 
-    function parseAprilBrother (req) {
+    function parseAprilBrother (req, res) {
 
-        return new Promise((req, res) => {
+        return new Promise((resolve, reject) => {
 
             let list = [];
 
@@ -142,7 +142,7 @@ module.exports = (router, io) => {
         });
     }
 
-    function parseBrightBeacon (req) {
+    function parseBrightBeacon (req, res) {
 
         const beacons = req.body.beacons.map(beacon => {
 
