@@ -1,5 +1,6 @@
 const Buffer = require('buffer').Buffer;
 const Bean = require('../models/bean.js');
+const Record = require('../models/record.js');
 
 module.exports = (router, io) => {
     
@@ -28,15 +29,18 @@ module.exports = (router, io) => {
                         return bean.save();
                     }
                 }).then(bean => {
-                    // update record into db                    
-                    bean.update({
-                        $push: {records: {
-                            temp: line.temp,
-                            humi: line.humi,
-                            distance: line.distance,
-                            updatedAt: new Date()
-                        }}
-                    }).exec();
+                    // update record into db 
+
+                    const record = new Record({
+                        bean: bean._id,
+                        rssi: line.rssi,
+                        temp: line.temp,
+                        humi: line.humi,
+                        distance: line.distance,
+                        updatedAt: new Date()
+                    });
+
+                    record.save();
 
                     bean.rssi = line.rssi;
                     bean.temp = line.temp;

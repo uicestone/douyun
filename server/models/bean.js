@@ -8,8 +8,7 @@ const beanSchema = new Schema({
     temp: Number,
     humi: Number,
     distance: Number,
-    lastUpdatedAt: Date,
-    records: {type: Array, select: false, schema: [{temp: Number, humi: Number, distance: Number, updatedAt: Date}]}
+    lastUpdatedAt: Date
 });
 
 beanSchema.index({mac:1}, {unique:true});
