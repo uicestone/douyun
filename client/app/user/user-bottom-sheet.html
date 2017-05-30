@@ -1,14 +1,17 @@
 <md-bottom-sheet class="md-list md-has-header">
-    <md-subheader ng-cloak>编辑护理人员</md-subheader>
+    <md-subheader ng-cloak>编辑{{ roleLabels[user.roles[0]] }}</md-subheader>
     <div layout="row">
         <div flex="30" layout="column">
             <md-autocomplete md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="user.institution" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
                 <span>{{institution.name}}</span>
             </md-autocomplete>
-            <md-input-container>
+            <md-input-container ng-if="isStaff(user)">
                 <label>工号</label>
                 <input ng-model="user.num">
             </md-input-container>
+            <md-autocomplete ng-if="isFamily(user)" md-floating-label="护理对象" md-items="client in unBindedclients | filter:clientSearchText" md-search-text="clientSearchText" md-item-text="client.name" md-selected-item="user.client" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
+                <span>{{client.name}}</span>
+            </md-autocomplete>
             <md-input-container>
                 <label>姓名</label>
                 <input ng-model="user.name">

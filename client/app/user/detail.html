@@ -1,7 +1,7 @@
 <div class="page" ng-controller="userDetailCtrl">
     <div class="row ui-section">
         <div class="col-lg-12">
-            <h2 class="section-header">护理人员详情</h2>
+            <h2 class="section-header">{{ roleLabels[user.roles[0]] }}详情</h2>
         </div>
         <div class="col-md-4">
             <div class="card bg-white">
@@ -75,7 +75,10 @@
                                     <md-autocomplete md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="user.institution" md-min-length="0" md-no-cache="true" style="margin-top:24px">
                                         <span>{{institution.name}}</span>
                                     </md-autocomplete>
-                                    <md-input-container>
+                                    <md-autocomplete ng-if="isFamily(user)" md-floating-label="护理对象" md-items="client in unBindedclients | filter:clientSearchText" md-search-text="clientSearchText" md-item-text="client.name" md-selected-item="user.client" md-min-length="0" md-no-cache="true" style="margin-bottom:2px">
+                                        <span>{{client.name}}</span>
+                                    </md-autocomplete>
+                                    <md-input-container ng-if="isStaff(user)">
                                         <label>工号</label>
                                         <input ng-model="user.num">
                                     </md-input-container>

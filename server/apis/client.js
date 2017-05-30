@@ -43,6 +43,10 @@ module.exports = (router) => {
                 });
             }
 
+            if (req.query.family === '-') {
+                query.find({$or: [{families: {$exists: false}}, {families: {$size: 0}}]});
+            }
+
             query.count()
             .then((total) => {
                 return Promise.all([total,

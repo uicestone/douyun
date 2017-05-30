@@ -10,7 +10,8 @@ const userSchema = new Schema({
     gender: String,
     mobile: String,
     num: String,
-    institution: {_id: Schema.ObjectId, name: String}
+    institution: {_id: Schema.ObjectId, name: String},
+    client: {_id: Schema.ObjectId, name: String}
 });
 
 userSchema.index({username:1}, {unique:true});

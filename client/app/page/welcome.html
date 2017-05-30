@@ -10,8 +10,8 @@
 
         <div class="welcome-body">
             <md-button ng-if="user.can('list-institution')" href="#!/institution/list" class="md-raised md-primary btn-lg btn-w-lg" aria-label="开始使用">开始使用</md-button>
-            <md-button ng-if="user.can('view-single-client') && user.client" ng-href="#!/client/{{ user.client.id }}" class="md-raised md-primary btn-lg btn-w-lg" aria-label="开始使用"></md-button>
-            <md-button ng-if="user.can('list-client') && !user.can('list-institution')" ng-href="#!/client" class="md-raised md-primary btn-lg btn-w-lg" aria-label="开始使用"></md-button>
+            <md-button ng-if="user.can('view-single-client') && user.client" ng-href="#!/client/{{ user.client._id }}" class="md-raised md-primary btn-lg btn-w-lg" aria-label="开始使用">开始使用</md-button>
+            <md-button ng-if="user.can('list-client') && !user.can('list-institution')" ng-href="#!/client" class="md-raised md-primary btn-lg btn-w-lg" aria-label="开始使用">开始使用</md-button>
         </div>
     </div>
 </div>

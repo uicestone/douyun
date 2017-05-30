@@ -11,6 +11,7 @@ const clientSchema = new Schema({
     bed: {_id: Schema.ObjectId, num: String},
     bean: {_id: Schema.ObjectId, mac: String},
     assistant: {_id: Schema.ObjectId, name: String},
+    families: [{_id: Schema.ObjectId, name: String}],
     gender: String,
     age: Number,
     history: String,

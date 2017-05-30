@@ -66,7 +66,7 @@ gulp.task('less', function() {
 });
 
 gulp.task('less-watcher', function() {
-    gulp.watch([config.less], ['less']);
+    gulp.watch([config.less], {interval: 500}, ['less']);
 });
 
 gulp.task('sass', function() {
@@ -102,7 +102,7 @@ gulp.task('sass-min', function() {
 })
 
 gulp.task('sass-watcher', function() {
-    gulp.watch([config.sass], ['sass']);
+    gulp.watch([config.sass], {interval: 500}, ['sass']);
 });
 
 gulp.task('inject', function() {
@@ -229,7 +229,7 @@ function startBrowserSync(opt) {
     }
 
     function serveApp() {
-        gulp.watch([config.sass], ['sass']);
+        gulp.watch([config.sass], {interval: 500}, ['sass']);
 
         options.server = {
             baseDir: [
@@ -260,7 +260,7 @@ function startBrowserSync(opt) {
     }
 
     function serveDocs() {
-        gulp.watch([config.docsJade], ['jade-docs']);
+        gulp.watch([config.docsJade], {interval: 500}, ['jade-docs']);
 
         options.server = {
             baseDir: [
