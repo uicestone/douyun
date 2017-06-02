@@ -16,49 +16,72 @@ module.exports = (router, io) => {
         }
 
         beaconsPromise.then(beacons => {
-
-            beacons.map(line => {
-
-                Bean.findOne({mac:line.mac}).then(bean => {
-                    // create bean if not found
-                    if (bean) {
-                        return bean;
-                    }
-                    else {
-                        let bean = new Bean({mac:line.mac});
-                        return bean.save();
-                    }
-                }).then(bean => {
-                    // update record into db 
-
-                    const record = new Record({
-                        bean: bean._id,
-                        rssi: line.rssi,
-                        temp: line.temp,
-                        humi: line.humi,
-                        distance: line.distance,
-                        updatedAt: new Date()
-                    });
-
-                    record.save();
-
-                    bean.rssi = line.rssi;
-                    bean.temp = line.temp;
-                    bean.humi = line.humi;
-                    bean.distance = line.distance;
-                    bean.lastUpdatedAt = new Date();
-
-                    return bean.save();
-
-                }).then(bean => {
-                    io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
-                });
-                
-                // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
-            });
-            // console.log(`============= ${new Date()} =============\n\n`);
+            saveBeaconsData(beacons);
         });
     });
+
+    const mockBeaconsMac = process.env.MOCK_BEACONS && process.env.MOCK_BEACONS.split(',');
+    
+    if (mockBeaconsMac) {
+        mockBeaconsMac.forEach(mac => {
+            setInterval(() => {
+                const beacons = [{
+                    mac: mac,
+                    brand: 'XuXuKou',
+                    battery: 100,
+                    rssi: 0,
+                    temp: 25.0,
+                    humi: 50.0,
+                    distance: 100
+                }];
+
+                saveBeaconsData(beacons);
+            }, 1000);            
+        });
+    }
+
+    function saveBeaconsData (beacons) {
+
+        beacons.map(line => {
+
+            Bean.findOne({mac:line.mac}).then(bean => {
+                // create bean if not found
+                if (bean) {
+                    return bean;
+                }
+                else {
+                    let bean = new Bean({mac:line.mac});
+                    return bean.save();
+                }
+            }).then(bean => {
+                // update record into db 
+
+                const record = new Record({
+                    bean: bean._id,
+                    rssi: line.rssi,
+                    temp: line.temp,
+                    humi: line.humi,
+                    distance: line.distance,
+                    updatedAt: new Date()
+                });
+
+                record.save();
+
+                bean.rssi = line.rssi;
+                bean.temp = line.temp;
+                bean.humi = line.humi;
+                bean.distance = line.distance;
+                bean.lastUpdatedAt = new Date();
+
+                return bean.save();
+
+            }).then(bean => {
+                io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
+            });
+            
+            console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
+        });        
+    }
 
     function parseAprilBrother (req, res) {
 
