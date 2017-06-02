@@ -79,7 +79,7 @@ module.exports = (router, io) => {
                 io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
             });
             
-            console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
+            // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
         });        
     }
 

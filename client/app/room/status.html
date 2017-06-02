@@ -32,9 +32,23 @@
                     <div class="card-content">
                         <a class="card-profile-img pull-right" href="javascript:;"><img ng-src="assets/images/assets/avatar-{{ client.age % 4 }}.jpg" alt=""></a>
                         <md-list>
-                            <md-list-item>上次更换：16:30</md-list-item>
-                            <md-list-item>今日更换：3 次</md-list-item>
-                            <md-list-item>当前状态：良好</md-list-item>
+                            <md-list-item class="md-2-line">
+                                <md-icon>autorenew</md-icon>
+                                <div class="md-list-item-text">
+                                    <h3>今日更换：3 次</h3>
+                                    <p>上次更换：16:30</p>
+                                </div>
+                            </md-list-item>
+                            <md-list-item class="md-2-line">
+                                <md-icon>opacity</md-icon>
+                                <div class="md-list-item-text">
+                                    <h3>
+                                        <i class="fa fa-thermometer-half"></i> {{ client.bean.temp || '-' }}℃
+                                        <i class="fa fa-tint"></i> {{ client.bean.humi || '-' }}%
+                                    </h3>
+                                    <p>当前状态良好</p>
+                                </div>
+                            </md-list-item>
                         </md-list>
                     </div>
                     <div class="card-action">
