@@ -24,18 +24,23 @@ module.exports = (router, io) => {
     
     if (mockBeaconsMac) {
         mockBeaconsMac.forEach(mac => {
-            setInterval(() => {
-                const beacons = [{
-                    mac: mac,
-                    brand: 'XuXuKou',
-                    battery: 100,
-                    rssi: 0,
-                    temp: 25.0,
-                    humi: 50.0,
-                    distance: 100
-                }];
+            
+            let beacons = [{
+                mac: mac,
+                brand: 'XuXuKou',
+                battery: 100,
+                rssi: 0,
+                temp: 25.0,
+                humi: 50.0,
+                distance: 100
+            }];
 
-                saveBeaconsData(beacons);
+            setInterval(() => {
+                beacons[0].rssi = Math.min(0, Math.round(beacons[0].rssi + Math.random() - 0.5));
+                beacons[0].distance = Math.max(1000, Math.min(0, Math.round(beacons[0].rssi + Math.random() - 0.5)));
+                beacons[0].temp = Math.max(30, Math.min(37, beacons[0].temp + Math.random() - 0.5));
+                beacons[0].humi = Math.max(60, Math.min(100, beacons[0].humi + Math.random() - 0.5));
+                saveBeaconsData(beacons); 
             }, 1000);            
         });
     }
@@ -68,8 +73,8 @@ module.exports = (router, io) => {
                 record.save();
 
                 bean.rssi = line.rssi;
-                bean.temp = line.temp;
-                bean.humi = line.humi;
+                bean.temp = Number(line.temp.toFixed(1));
+                bean.humi = Number(line.humi.toFixed(1));
                 bean.distance = line.distance;
                 bean.lastUpdatedAt = new Date();
 
