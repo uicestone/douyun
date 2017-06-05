@@ -85,6 +85,11 @@
             $scope.$apply();
         });
 
+        socketIoService.on('client status update', function (status) {
+            $scope.client.status = status;
+            $scope.$apply();
+        });
+
         $scope.bindBean = function (bean, client) {
             client.bean = bean;
             client.$save();

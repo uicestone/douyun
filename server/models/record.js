@@ -7,7 +7,7 @@ const recordSchema = new Schema({
     temp: Number,
     humi: Number,
     distance: Number,
-    lastUpdatedAt: Date
+    updatedAt: Date
 });
 
 recordSchema.index({bean:1, lastUpdatedAt:-1});
