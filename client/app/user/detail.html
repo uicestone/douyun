@@ -88,7 +88,7 @@
                         <md-button ng-click="updateUser(user)" ng-show="userChanged" class="md-fab md-fab-corner"><md-icon>done</md-icon></md-button>
                     </div>
                 </md-tab>
-                <md-tab label="记录">
+                <md-tab label="记录" ng-if="user.roles[0]=='nurse' || user.roles[0]=='assistant'">
                     <div class="ui-timline-container">
                         <section class="ui-timeline">
                             <article class="tl-item">
@@ -121,7 +121,7 @@
                     </div>
                     <md-button ng-click="editLog(log)" class="md-fab md-fab-corner"><md-icon>add</md-icon></md-button>
                 </md-tab>
-                <md-tab label="统计">
+                <md-tab label="统计" ng-if="user.roles[0]=='nurse' || user.roles[0]=='assistant'">
                     <div class="card bg-white" layout-padding>
                         <canvas id="chart" class="chart chart-bar" chart-data="chart.data" chart-labels="chart.labels" chart-series="chart.series" chart-options="chart.options" chart-dataset-override="chart.datasetOverride"></canvas>
                     </div>
