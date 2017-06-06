@@ -109,7 +109,7 @@ module.exports = (router, io) => {
                     const slope = regressionResult.equation[0];
 
                     // we guess the client has just pee
-                    if (slope >= 0.8) {
+                    if (slope >= 1) {
 
                         const log = new Log({
                             createdAt: new Date(),
