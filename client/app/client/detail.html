@@ -47,12 +47,21 @@
                             </div>
                         </md-list-item>
                         <md-list-item class="md-2-line">
-                            <img class="md-avatar" src="assets/images/assets/nurse.jpg">
+                            <img ng-if="!client.assistant.avatar" class="md-avatar" src="assets/images/assets/nurse.jpg">
+                            <img ng-if="client.assistant.avatar" class="md-avatar" ng-src="{{ client.assistant.avatar }}">
                             <div class="md-list-item-text">
                                 <h3>护理人员</h3>
                                 <p>{{ client.assistant.name }}</p>
                             </div>
                             <div class="md-secondary label label-success">在岗</div>
+                        </md-list-item>
+                        <md-list-item ng-if="client.families.length" class="md-2-line">
+                            <img class="md-avatar" ng-src="{{ client.families[0].avatar }}">
+                            <div class="md-list-item-text">
+                                <h3>家属</h3>
+                                <p>{{ client.families[0].name }}</p>
+                            </div>
+                            <div ng-if="client.families[0].openid" class="md-secondary label label-success">微信已绑定</div>
                         </md-list-item>
                     </md-list>
                     <!-- <md-button ng-href="#!/client/{{ client._id }}" class="btn">
@@ -92,13 +101,18 @@
                                     <md-autocomplete flex md-floating-label="护理机构" md-items="institution in institutions | filter:institutionSearchText" md-search-text="institutionSearchText" md-item-text="institution.name" md-selected-item="client.institution" md-min-length="0" md-no-cache="true">
                                         <span>{{institution.name}}</span>
                                     </md-autocomplete>
-                                    <md-autocomplete flex md-floating-label="房间" md-items="room in getRooms()" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true">
-                                        <span>{{room.num}}</span>
+                                    <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:assistantSearchText" md-search-text="assistantSearchText" md-item-text="assistant.name" md-selected-item="client.assistant" md-min-length="0" md-no-cache="true">
+                                        <span>{{assistant.name}}</span>
                                     </md-autocomplete>
-                                    <md-input-container>
-                                        <label>床位</label>
-                                        <input ng-model="client.room.bedNum">
-                                    </md-input-container>
+                                    <div flex layout="row">
+                                        <md-autocomplete flex md-floating-label="房间" md-items="room in getRooms()" md-search-text="roomSearchText" md-item-text="room.num" md-selected-item="client.room" md-min-length="0" md-no-cache="true">
+                                            <span>{{room.num}}</span>
+                                        </md-autocomplete>
+                                        <md-input-container>
+                                            <label>床位</label>
+                                            <input ng-model="client.room.bedNum">
+                                        </md-input-container>
+                                    </div>
                                 </fieldset>
                             </div>
                             <md-input-container flex>

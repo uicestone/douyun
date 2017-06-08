@@ -1,4 +1,5 @@
 const User = require('../models/user.js');
+const Client = require('../models/client.js');
 
 module.exports = (router) => {
     // User CURD
@@ -104,7 +105,31 @@ module.exports = (router) => {
             }
 
             User.findByIdAndUpdate(req.params.userId, req.body, {new: true}).then(user => {
+                
                 res.json(user);
+
+                Client.update(user.client ? {_id: {$ne: user.client._id}} : {}, {
+                    $pull: {
+                        families: {
+                            _id: user._id
+                        }
+                    }
+                }, {multi: true}).exec();
+
+                if (user.client) {
+                    Client.findByIdAndUpdate(user.client._id, {
+                        $addToSet: {
+                            families: {
+                                _id: user._id,
+                                name: user.name,
+                                avatar: user.avatar,
+                                openid: user.openid
+                            }
+                        }
+                    }).exec();
+                }
+            }).then(user => {
+
             }).catch(err => {
                 console.error(err);
                 res.status(500);
