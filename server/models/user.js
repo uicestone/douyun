@@ -11,7 +11,13 @@ const userSchema = new Schema({
     mobile: String,
     num: String,
     institution: {_id: Schema.ObjectId, name: String},
-    client: {_id: Schema.ObjectId, name: String}
+    client: {_id: Schema.ObjectId, name: String},
+    region: String,
+    avatar: String,
+    openid: String,
+    subscribed: Boolean,
+    subscribedAt: Date,
+    remark: String
 });
 
 userSchema.index({username:1}, {unique:true});

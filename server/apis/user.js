@@ -45,7 +45,7 @@ module.exports = (router) => {
 
             if(req.query.keyword) {
                 query.find({
-                    name: new RegExp(req.query.keyword)
+                    name: new RegExp(req.query.keyword, 'i')
                 });
             }
 
@@ -91,6 +91,18 @@ module.exports = (router) => {
         })
 
         .put((req, res) => {
+
+            if (req.body.wechatUser) {
+                // copy wechatUser into user
+                ['avatar', 'gender', 'openid', 'region', 'remark', 'subscribed', 'subscribedAt'].forEach(key => {
+                    req.body[key] = req.body.wechatUser[key];
+                });
+
+                // delete wechat user from database
+                User.remove({_id: req.body.wechatUser._id}).exec();
+                delete req.body.wechatUser;
+            }
+
             User.findByIdAndUpdate(req.params.userId, req.body, {new: true}).then(user => {
                 res.json(user);
             }).catch(err => {

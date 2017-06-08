@@ -1,7 +1,5 @@
-const env = require('node-env-file');
 const wechatApi = require('wechat-api');    
 
-env(`${__dirname}/../../.env`);
 const wechat = new wechatApi(process.env.WECHAT_APP_ID, process.env.WECHAT_APP_SECRET);
 
 module.exports = function (type) {
@@ -18,7 +16,7 @@ module.exports = function (type) {
             templateId = 'KkqFXWo73buBxK4KmC7f72ThSjDsA_hGljscHSOd27E';
         }
 
-        const url = 'http://douyun.ltd:8080/#!/client/58dc596638547ebbb964e0cb';
+        const url = 'http://douyun.ltd/#!/client/58dc596638547ebbb964e0cb';
         
         if (type === 'notice') {
             data = {

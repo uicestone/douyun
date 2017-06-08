@@ -121,6 +121,10 @@
             return user.roles.length && (user.roles.indexOf('family') > -1);
         }
 
+        $scope.getUnbindedWechatUsers = function (searchText) {
+            return userService.query({roles: 'subscriber', keyword: searchText}).$promise;
+        }
+
         $scope.chart = {
             labels: ['4/2', '4/3', '4/4', '4/5', '4/6', '4/7', '4/8'],
             series: ['更换尿布'],

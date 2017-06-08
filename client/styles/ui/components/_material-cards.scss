@@ -80,6 +80,14 @@
                 object-fit: cover;
                 object-position: 50% 33%;
             }
+            .default {
+                font-size: 90px;
+                height: 90px;
+                width: 90px;
+                max-height: 90px;
+                max-width: 90px;
+                color: #d6d6d6;
+            }
 
             &.profile-img-sm {
                 margin-top: -50px;
