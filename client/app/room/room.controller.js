@@ -19,7 +19,6 @@
             });
 
             Object.keys($scope.subscribedBeans).forEach(function (_id) {
-                console.log('join bean ' + _id);
                 socketIoService.emit('join', 'bean ' + _id)
                     .on('reconnect', function () {
                         socketIoService.emit('join', 'bean ' + _id)
@@ -28,7 +27,7 @@
         });
 
         socketIoService.on('temp data update', function (bean) {
-            console.log(bean.mac, bean.rssi, bean.temp + '°C', bean.humi + '%', bean.distance + 'cm');
+            // console.log(bean.mac, bean.rssi, bean.temp + '°C', bean.humi + '%', bean.distance + 'cm');
             angular.extend($scope.subscribedBeans[bean._id], bean);
             $scope.$apply();
         });
