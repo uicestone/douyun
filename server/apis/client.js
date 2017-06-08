@@ -1,7 +1,9 @@
 const Client = require('../models/client.js');
 const Bean = require('../models/bean.js');
 const Room = require('../models/room.js');
+const Log = require('../models/log.js');
 const Types = require('mongoose').Types;
+const moment = require('moment');
 
 module.exports = (router) => {
     // Client CURD
@@ -72,13 +74,36 @@ module.exports = (router) => {
     router.route('/client/:clientId')
 
         // get the client with that id
-        .get((req, res) =>{
-            Client.findById(req.params.clientId).then(client => {
-                res.json(client);
-            }).catch(err => {
+        .get(async (req, res) => {
+
+            try {
+                const client = await Client.findById(req.params.clientId);
+
+                const clientObject = client.toObject();
+                
+                clientObject.changesToday = await Log.count({
+                    'client._id': client._id,
+                    title: '更换尿布',
+                    createdAt: {
+                        $gte: moment().startOf('day'),
+                        $lte: moment().endOf('day')
+                    }
+                });
+
+                const lastChangeLog = await Log.findOne({
+                    'client._id': client._id,
+                    title: '更换尿布'
+                }).sort({createdAt: -1});
+
+                clientObject.lastChangedAt = lastChangeLog.createdAt;
+
+                res.json(clientObject);
+            }
+            catch(err) {
                 console.error(err);
                 res.status(500);
-            });
+            };
+
         })
 
         .put((req, res) => {
