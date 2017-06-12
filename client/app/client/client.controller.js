@@ -121,7 +121,7 @@
             $mdBottomSheet.hide();
             log.$save();
             if(!log._id) {
-                $scope.logs.push(log);
+                $scope.logs.unshift(log);
             }
         };
 

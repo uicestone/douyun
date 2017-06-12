@@ -3,7 +3,7 @@
     <div layout="row">
         <div flex="30" layout="column">
             <div flex layout="row">
-                <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:assistantSearchText" md-search-text="assistantSearchText" md-item-text="assistant.name" md-selected-item="log.assistant" md-min-length="0" md-no-cache="true" ng-disabled="!$parent.user.can('manage-user')">
+                <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:logAssistantSearchText" md-search-text="logAssistantSearchText" md-item-text="assistant.name" md-selected-item="log.assistant" md-min-length="0" md-no-cache="true" ng-disabled="!$parent.user.can('manage-user')">
                     <span>{{assistant.name}}</span>
                 </md-autocomplete>
                 <md-input-container flex>
