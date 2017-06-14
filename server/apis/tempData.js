@@ -52,64 +52,65 @@ module.exports = (router, io) => {
 
     function saveBeaconsData (beacons) {
 
-        beacons.map(line => {
+        beacons.map(async line => {
 
-            Bean.findOne({mac:line.mac}).then(bean => {
-                // create bean if not found
-                if (bean) {
-                    return bean;
-                }
-                else {
-                    let bean = new Bean({mac:line.mac});
-                    return bean.save();
-                }
-            }).then(bean => {
+            let bean = await Bean.findOne({mac:line.mac});
 
-                // save record into db
-                const record = new Record({
-                    bean: bean._id,
-                    rssi: line.rssi,
-                    temp: line.temp,
-                    humi: line.humi,
-                    distance: line.distance,
-                    updatedAt: new Date()
-                });
+            // create bean if not found
+            if (!bean) {
+                bean = new Bean({mac:line.mac});
+                bean = await bean.save();
+            }
 
-                record.save();
+            // save record into db
+            const record = new Record({
+                bean: bean._id,
+                rssi: line.rssi,
+                temp: line.temp,
+                humi: line.humi,
+                distance: line.distance,
+                updatedAt: new Date()
+            });
 
-                // and send record to client
-                bean.rssi = line.rssi;
-                bean.temp = line.temp;
-                bean.humi = line.humi;
-                bean.distance = line.distance;
-                bean.lastUpdatedAt = new Date();
+            record.save();
 
-                // save current stat to the bean
-                bean.save();
+            // and send record to client
+            bean.rssi = line.rssi;
+            bean.temp = line.temp;
+            bean.humi = line.humi;
+            bean.distance = line.distance;
+            bean.lastUpdatedAt = new Date();
 
-                // beans not binded to client should not go further
-                if (!bean.client) {
-                    return;
-                }
-                
-                io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
+            // save current stat to the bean
+            bean.save();
 
-                // update recentRecords
-                if (!recentRecords[bean._id]) {
-                    recentRecords[bean._id] = [];
-                }
-                recentRecords[bean._id].push(record);
+            // beans not binded to client should not go further
+            if (!bean.client) {
+                return;
+            }
+            
+            io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('temp data update', bean);
 
-                recentRecords[bean._id] = recentRecords[bean._id].filter(record => new Date() - record.updatedAt < 7000);
+            // update recentRecords
+            if (!recentRecords[bean._id]) {
+                recentRecords[bean._id] = [];
+            }
+            recentRecords[bean._id].push(record);
 
-                if (recentRecords[bean._id].length >= 5) {
-                    const recentRecordsData = recentRecords[bean._id].map(record => [(record.updatedAt - new Date()) / 1000, record.humi]);
-                    const regressionResult = regression('linear', recentRecordsData);
+            recentRecords[bean._id] = recentRecords[bean._id].filter(record => new Date() - record.updatedAt < 70000);
 
-                    const slope = regressionResult.equation[0];
+            if (recentRecords[bean._id].length >= 7) {
+                const recentRecordsData = recentRecords[bean._id].map(record => [(record.updatedAt - new Date()) / 1000, record.humi]);
+                const regressionResult = regression('linear', recentRecordsData);
 
-                    // we guess the client has just pee
-                    if (slope >= 1) {
+                const slope = regressionResult.equation[0];
+
+                // we guess the client has just pee
+                if (slope >= 1) {
+
+                    const client = await Client.findById(bean.client._id);
+
+                    if (!client.status || client.status.name === '良好') {
 
                         const log = new Log({
                             createdAt: new Date(),
@@ -119,21 +120,32 @@ module.exports = (router, io) => {
 
                         log.save();
 
-                        const status = {since: new Date(), name: '湿润'};
-                        Client.findByIdAndUpdate(bean.client._id, {status: status}).exec();
-
-                        io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('client status update', status);
-
-                        // console.log(`\x1b[33m[${new Date()}] ${bean.mac} ${slope.toFixed(2)}\x1b[0m`);
+                        client.status = {since: new Date(), name: '湿润'};
+                        client.save();
                     }
-                    else {
-                        // console.log(`[${new Date()}] ${bean.mac} ${slope.toFixed(2)}`);
+                    // wet for 10min? not good.
+                    else if (client.status.name === '湿润' && Date.now() - client.status.since >= 600000) {
+                        
+                        const log = new Log({
+                            createdAt: new Date(),
+                            title: '煎熬',
+                            client: bean.client
+                        });
+
+                        log.save();
+
+                        client.status = {since: new Date(), name: '煎熬'};
+                        client.save();
                     }
+
+                    io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('client status update', status);
+
+                    // console.log(`\x1b[33m[${new Date()}] ${bean.mac} ${slope.toFixed(2)}\x1b[0m`);
                 }
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                else {
+                    // console.log(`[${new Date()}] ${bean.mac} ${slope.toFixed(2)}`);
+                }
+            }
             
             // console.log(line.brand, line.mac, line.temp, line.humi, line.battery, line.rssi);
         });        
