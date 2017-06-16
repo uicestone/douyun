@@ -26,7 +26,7 @@
         <div class="col-lg-12 row">
             <div class="col-md-4" ng-repeat="client in clients">
                 <div class="card bg-white">
-                    <div class="card-image bg-success">
+                    <div class="card-image bg-success" ng-class="{'bg-danger':client.status.name=='煎熬','bg-warning':client.status.name=='湿润'}">
                         <div class="card-title">{{ client.name }}</div>
                     </div>
                     <div class="card-content">
@@ -35,18 +35,18 @@
                             <md-list-item class="md-2-line">
                                 <md-icon>autorenew</md-icon>
                                 <div class="md-list-item-text">
-                                    <h3>今日更换：3 次</h3>
-                                    <p>上次更换：16:30</p>
+                                    <h3>今日更换：{{ client.changesToday }} 次</h3>
+                                    <p>上次更换：{{ client.lastChangedAt | date:'mm:ss' }}</p>
                                 </div>
                             </md-list-item>
                             <md-list-item class="md-2-line">
                                 <md-icon>opacity</md-icon>
                                 <div class="md-list-item-text">
                                     <h3>
-                                        <i class="fa fa-thermometer-half"></i> {{ client.bean.temp || '-' }}℃
-                                        <i class="fa fa-tint"></i> {{ client.bean.humi || '-' }}%
+                                        <i class="fa fa-thermometer-half"></i> {{ client.bean.temp | number:1 || '-' }}℃
+                                        <i class="fa fa-tint"></i> {{ client.bean.humi | number:1 || '-' }}%
                                     </h3>
-                                    <p>当前状态良好</p>
+                                    <p>当前状态{{ client.status.name || '良好' }}</p>
                                 </div>
                             </md-list-item>
                         </md-list>

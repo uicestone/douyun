@@ -32,6 +32,28 @@
             $scope.$apply();
         });
 
+        socketIoService.on('client status update', function (status) {
+
+            var clientId = status.client;
+
+            var client = $scope.clients.filter(client => client._id === clientId)[0];
+
+            if (!client) {
+                return;
+            }
+            
+            if (!client.status || client.status.name !== status.name) {
+                // reload client detail for latest changes count
+                clientService.get({id:client._id}, function (clientUpdated) {
+                    client.status = clientUpdated.status;
+                    client.lastChangedAt = clientUpdated.lastChangedAt;
+                    client.changesToday = clientUpdated.changesToday;
+                });
+            }
+
+            $scope.$apply();
+        });
+
         $scope.$on('$destroy', function () {
             Object.keys($scope.subscribedBeans).forEach(function (_id) {
                 socketIoService.emit('leave', 'bean ' + _id);

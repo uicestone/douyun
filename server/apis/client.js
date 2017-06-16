@@ -25,7 +25,7 @@ module.exports = (router) => {
         })
 
         // get all the clients
-        .get((req, res) =>{
+        .get(async (req, res) =>{
 
             const limit = +req.query.limit || 20;
             let skip = +req.query.skip || 0;
@@ -49,24 +49,48 @@ module.exports = (router) => {
                 query.find({$or: [{families: {$exists: false}}, {families: {$size: 0}}]});
             }
 
-            query.count()
-            .then((total) => {
-                return Promise.all([total,
-                    query.find().limit(limit).skip(skip).exec()
-                ]);
-            })
-            .then((result) => {
-                let [total, page] = result;
+            const total = await query.count();
+            let page = await query.find().limit(limit).skip(skip).exec();
 
-                if(skip + page.length > total) {
-                    total = skip + page.length;
-                }
+            if(skip + page.length > total) {
+                total = skip + page.length;
+            }
 
-                res.set('items-total', total)
-                .set('items-start', Math.min(skip + 1, total))
-                .set('items-end', Math.min(skip + limit, total))
-                .json(page);
-            });
+            const processPage = [];
+
+            page = await Promise.all(page.map(client => {
+
+                return new Promise(async resolve => {
+
+                    const clientObject = client.toObject();
+                    
+                    clientObject.changesToday = await Log.count({
+                        'client._id': client._id,
+                        title: '更换尿布',
+                        createdAt: {
+                            $gte: moment().startOf('day'),
+                            $lte: moment().endOf('day')
+                        }
+                    });
+
+                    const lastChangeLog = await Log.findOne({
+                        'client._id': client._id,
+                        title: '更换尿布'
+                    }).sort({createdAt: -1});
+
+                    clientObject.lastChangedAt = lastChangeLog ? lastChangeLog.createdAt : null;
+
+                    resolve(clientObject);
+                });
+                
+            }));
+
+            console.log('return page');
+
+            res.set('items-total', total)
+            .set('items-start', Math.min(skip + 1, total))
+            .set('items-end', Math.min(skip + limit, total))
+            .json(page);
         });
 
     // on routes that end in /client/:clientId
@@ -78,6 +102,11 @@ module.exports = (router) => {
 
             try {
                 const client = await Client.findById(req.params.clientId);
+
+                if (!client) {
+                    res.status(404).json({message: 'Client not found.'});
+                    return;
+                }
 
                 const clientObject = client.toObject();
                 
@@ -95,7 +124,7 @@ module.exports = (router) => {
                     title: '更换尿布'
                 }).sort({createdAt: -1});
 
-                clientObject.lastChangedAt = lastChangeLog.createdAt;
+                clientObject.lastChangedAt = lastChangeLog ? lastChangeLog.createdAt : null;
 
                 res.json(clientObject);
             }

@@ -140,7 +140,9 @@ module.exports = (router, io) => {
                         client.save();
                     }
 
-                    io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('client status update', status);
+                    client.status.client = client._id;
+
+                    io.to(bean.client && bean.client._id ? `bean ${bean._id}` : 'unbinded beans').emit('client status update', client.status);
 
                     // console.log(`\x1b[33m[${new Date()}] ${bean.mac} ${slope.toFixed(2)}\x1b[0m`);
                 }

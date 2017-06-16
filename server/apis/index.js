@@ -9,7 +9,7 @@ module.exports = (app, router, io) => {
     router = require('./bed.js')(router);
     router = require('./bean.js')(router);
     router = require('./client.js')(router);
-    router = require('./log.js')(router);
+    router = require('./log.js')(router, io);
     router = require('./user.js')(router);
     router = require('./auth.js')(router);
     router = require('./tempData.js')(router, io);

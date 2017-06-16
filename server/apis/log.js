@@ -1,11 +1,12 @@
 const Log = require('../models/log.js');
+const Client = require('../models/client.js');
 
-module.exports = (router) => {
+module.exports = (router, io) => {
     // Log CURD
     router.route('/log')
 
         // create a log
-        .post((req, res) => {
+        .post(async (req, res) => {
             
             let log = new Log(req.body); // create a new instance of the Log model
 
@@ -17,6 +18,19 @@ module.exports = (router) => {
                 res.status(500);
             });
             
+            const client  = await Client.findById(log.client._id);
+
+            if (client.status && client.status.name !== '良好' && log.title === '更换尿布') {
+                const status = {since: new Date(), name: '良好'};
+                client.status = status;
+                client.save();
+                status.client = client._id;
+
+                io.to(`bean ${client.bean._id}`).emit('client status update', status);
+                // if status is 煎熬, write 'until' key to that log
+                // TODO
+            }
+
         })
 
         // get all the logs

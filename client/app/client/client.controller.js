@@ -86,7 +86,17 @@
         });
 
         socketIoService.on('client status update', function (status) {
-            $scope.client.status = status;
+            // reload logs on different status
+            if (!$scope.client.status || $scope.client.status.name !== status.name) {
+                logService.query({'client':$route.current.params.id, limit:1000}, function (logs) {
+                    $scope.logs = logs;
+                });
+                // also, reload client detail for latest changes count
+                clientService.get({id:$route.current.params.id}, function (client) {
+                    $scope.client = client;
+                });
+            }
+
             $scope.$apply();
         });
 
