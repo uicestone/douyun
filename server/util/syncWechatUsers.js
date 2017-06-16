@@ -46,7 +46,7 @@ wechat.getFollowersAsync().then(result => {
                 userInfoToUpdate.name = user.nickname;
                 userInfoToUpdate.roles = ['subscriber'];
                 userInfoToUpdate.openid = user.openid;
-                User.create(userInfoToUpdate);
+                return User.create(userInfoToUpdate);
             }
         }).catch(err => {
             console.error(err);
