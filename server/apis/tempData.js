@@ -97,16 +97,18 @@ module.exports = (router, io) => {
             }
             recentRecords[bean._id].push(record);
 
-            recentRecords[bean._id] = recentRecords[bean._id].filter(record => new Date() - record.updatedAt < 70000);
+            const [wetDetectAmount, wetDetectPeriod] = process.env.WET_DETECT.split(',');
 
-            if (recentRecords[bean._id].length >= 7) {
+            recentRecords[bean._id] = recentRecords[bean._id].filter(record => new Date() - record.updatedAt < wetDetectPeriod * 1000);
+
+            if (recentRecords[bean._id].length >= wetDetectPeriod) {
                 const recentRecordsData = recentRecords[bean._id].map(record => [(record.updatedAt - new Date()) / 1000, record.humi]);
                 const regressionResult = regression('linear', recentRecordsData);
 
                 const slope = regressionResult.equation[0];
 
                 // we guess the client has just pee
-                if (slope >= 1) {
+                if (slope >= wetDetectAmount) {
 
                     const client = await Client.findById(bean.client._id);
 
