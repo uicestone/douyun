@@ -1,5 +1,6 @@
 const Log = require('../models/log.js');
 const Client = require('../models/client.js');
+const sendWechatTemplate = require('../util/sendWechatTemplate.js');
 
 module.exports = (router, io) => {
     // Log CURD
@@ -29,6 +30,8 @@ module.exports = (router, io) => {
                 io.to(`bean ${client.bean._id}`).emit('client status update', status);
                 // if status is 煎熬, write 'until' key to that log
                 // TODO
+                // send message to family
+                sendWechatTemplate('report', client, client.families[0]);
             }
 
         })

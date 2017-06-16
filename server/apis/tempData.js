@@ -3,6 +3,7 @@ const Bean = require('../models/bean.js');
 const Record = require('../models/record.js');
 const Log = require('../models/log.js');
 const Client = require('../models/client.js');
+const sendWechatTemplate = require('../util/sendWechatTemplate.js');
 const regression = require('regression');
 const recentRecords = {};
 
@@ -124,6 +125,9 @@ module.exports = (router, io) => {
 
                         client.status = {since: new Date(), name: '湿润'};
                         client.save();
+
+                        // send notice to assistant
+                        sendWechatTemplate('notice', client, client.assistant);
                     }
                     // wet for 10min? not good.
                     else if (client.status.name === '湿润' && Date.now() - client.status.since >= 600000) {
