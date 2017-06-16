@@ -85,8 +85,6 @@ module.exports = (router) => {
                 
             }));
 
-            console.log('return page');
-
             res.set('items-total', total)
             .set('items-start', Math.min(skip + 1, total))
             .set('items-end', Math.min(skip + limit, total))
@@ -148,10 +146,6 @@ module.exports = (router) => {
                 res.json(client);
 
                 if (client.room) {
-                    console.log('addToSet', client.room._id, {
-                        _id: Types.ObjectId(client._id),
-                        name: client.name
-                    });
                     Room.findByIdAndUpdate(client.room._id, {$addToSet: {clients: {
                         _id: Types.ObjectId(client._id),
                         name: client.name
