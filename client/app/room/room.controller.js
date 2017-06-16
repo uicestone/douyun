@@ -36,7 +36,9 @@
 
             var clientId = status.client;
 
-            var client = $scope.clients.filter(client => client._id === clientId)[0];
+            var client = $scope.clients.filter(function(client) {
+                return client._id === clientId;
+            })[0];
 
             if (!client) {
                 return;
