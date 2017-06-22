@@ -161,7 +161,8 @@
                             </article>
                         </section>
                     </div>
-                    <md-button ng-click="editLog(log)" class="md-fab md-fab-corner"><md-icon>add</md-icon></md-button>
+                    <md-button ng-if="$parent.user.can('edit-log')" ng-click="editLog(log)" class="md-fab md-fab-corner" style="top:1em"><md-icon>add</md-icon></md-button>
+                    <md-button ng-if="!$parent.user.can('edit-log')" ng-click="editLog(false)" class="md-fab md-fab-corner" style="top:1em"><md-icon>refresh</md-icon></md-button>
                 </md-tab>
                 <md-tab label="统计">
                     <div class="card bg-white" layout-padding>

@@ -25,8 +25,8 @@
         .service('receiverService', ['$resource', receiverService])
         .service('bedService', ['$resource', bedService])
         .constant('userRolesConstant', [
-            {name: 'admin', label: '管理员', abilities: ['list-institution', 'manage-user', 'list-user', 'list-client']},
-            {name: 'nurse', label: '护士', abilities: ['view-single-institution', 'list-user', 'list-client']},
+            {name: 'admin', label: '管理员', abilities: ['list-institution', 'manage-user', 'list-user', 'list-client', 'edit-log']},
+            {name: 'nurse', label: '护士', abilities: ['view-single-institution', 'list-user', 'list-client', 'edit-log']},
             {name: 'assistant', label: '护工', abilities: ['list-client']},
             {name: 'family', label: '家属', abilities: ['view-single-client']}
         ]);

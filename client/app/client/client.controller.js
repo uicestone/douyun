@@ -107,6 +107,9 @@
         };
 
         $scope.editLog = function (log) {
+
+            var addRefreshLog = log === false;
+
             if(!log) {
                 log = new logService();
 
@@ -119,14 +122,19 @@
                 log.title = '更换尿布';
             }
 
-            $scope.log = log;
-            $scope.log.createdAtMoment = moment(log.createdAt);
+            if (addRefreshLog) {
+                log.$save();
+            }
+            else {
+                $scope.log = log;
+                $scope.log.createdAtMoment = moment(log.createdAt);
 
-            $mdBottomSheet.show({
-                templateUrl: 'app/client/log-bottom-sheet.html',
-                scope: $scope,
-                preserveScope: true
-            });
+                $mdBottomSheet.show({
+                    templateUrl: 'app/client/log-bottom-sheet.html',
+                    scope: $scope,
+                    preserveScope: true
+                });
+            }
         };
 
         $scope.updateLog = function (log) {
