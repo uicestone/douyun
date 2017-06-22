@@ -120,6 +120,7 @@
             }
 
             $scope.log = log;
+            $scope.log.createdAtMoment = moment(log.createdAt);
 
             $mdBottomSheet.show({
                 templateUrl: 'app/client/log-bottom-sheet.html',
@@ -130,6 +131,7 @@
 
         $scope.updateLog = function (log) {
             $mdBottomSheet.hide();
+            log.createdAt = log.createdAtMoment;
             log.$save();
             if(!log._id) {
                 $scope.logs.unshift(log);
