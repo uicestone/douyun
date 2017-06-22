@@ -20,7 +20,7 @@
                                 <p>上次更换：{{ client.lastChangedAt | date:'H:mm' }}</p>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-2-line">
+                        <md-list-item class="md-2-line" ng-if="client.bean">
                             <md-icon>opacity</md-icon>
                             <div class="md-list-item-text">
                                 <h3>
@@ -147,7 +147,7 @@
                                     <div class="tl-entry">
                                         <div class="tl-time">{{ log.createdAt | date:'yyyy-MM-dd HH:mm' }}</div>
                                         <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info">
-                                            <i class="fa" ng-class="{'fa-tint':log.title=='排尿', 'fa-refresh':log.title=='更换尿布'}"></i>
+                                            <i class="fa" ng-class="{'fa-tint':log.title=='排尿','fa-exclamation':log.title=='煎熬', 'fa-refresh':log.title=='更换尿布'}"></i>
                                         </div>
                                         <div class="tl-content">
                                             <h4 class="tl-tile text-primary">
