@@ -7,7 +7,8 @@
             <md-list>
                 <label>护理人员</label>
                 <md-list-item>
-                    <img class="md-avatar" src="assets/images/assets/nurse.jpg">
+                    <img ng-if="user.avatar" ng-src="{{ user.avatar }}" class="md-avatar">
+                    <md-icon ng-if="!user.avatar" class="md-avatar-icon">account_circle</md-icon>
                     <md-list-item-text>{{ room.assistant.name }}</md-list-item-text>
                     <div class="md-secondary label label-info">在岗</div>
                 </md-list-item>

@@ -14,18 +14,26 @@
                         <md-icon ng-if="!user.avatar" class="default">account_circle</md-icon>
                     </a>
                     <md-list>
-                        <md-list-item class="md-2-line">
+                        <md-list-item class="md-2-line" ng-if="user.roles[0]=='assistant'">
                             <md-icon>autorenew</md-icon>
                             <div class="md-list-item-text">
                                 <h3>今日更换32人次</h3>
                                 <p>上次更换：16:30</p>
                             </div>
                         </md-list-item>
+                        <md-list-item ng-if="user.client" class="md-2-line" ng-if="user.roles[0]=='family'">
+                            <img class="md-avatar" ng-src="{{ user.client.avatar }}">
+                            <div class="md-list-item-text">
+                                <h3>护理对象</h3>
+                                <p>{{ user.client.name }}</p>
+                            </div>
+                            <div ng-if="client.families[0].openid" class="md-secondary label label-success">微信已绑定</div>
+                        </md-list-item>
                     </md-list>
                 </div>
                 <div class="card-action" style="text-align:left">
                     <md-list>
-                        <md-list-item>
+                        <md-list-item ng-if="user.roles[0]!='family'">
                             <md-icon>home</md-icon>
                             <div class="md-list-item-text">
                                 <h3 style="margin-top: 13px;font-weight: normal;font-size:16px">602房间</h3>
@@ -33,6 +41,14 @@
                             <div class="md-secondary label label-info">在岗</div>
                         </md-list-item>
                     </md-list>
+                    <md-list-item class="md-2-line">
+                        <i class="fa fa-weixin md-avatar-icon" style="font-size:24px;color:#3d3d3d;margin-top:14px"></i>
+                        <div class="md-list-item-text">
+                            <h3>微信</h3>
+                            <p>{{ client.families[0].name }}</p>
+                        </div>
+                        <div class="md-secondary label label-success">{{ user.openid ? '已绑定' : '未绑定' }}</div>
+                    </md-list-item>
                 </div>
             </div>
         </div>
