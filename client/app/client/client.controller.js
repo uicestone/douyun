@@ -63,6 +63,7 @@
         $scope.$on('$destroy', function () {
             socketIoService.emit('leave', $scope.subscribedBeans);
             socketIoService.off('temp data update');
+            socketIoService.off('client status update');
             socketIoService.off('reconnect');
         });
 

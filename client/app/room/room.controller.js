@@ -60,6 +60,7 @@
             Object.keys($scope.subscribedBeans).forEach(function (_id) {
                 socketIoService.emit('leave', 'bean ' + _id);
                 socketIoService.off('temp data update');
+                socketIoService.off('client status update');
                 socketIoService.off('reconnect');
             });
         });
