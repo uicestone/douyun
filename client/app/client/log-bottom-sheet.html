@@ -1,7 +1,7 @@
 <md-bottom-sheet class="md-list md-has-header">
     <md-subheader ng-cloak>编辑护理日志</md-subheader>
     <div layout="row">
-        <div flex="30" layout="column">
+        <div flex-gt-sm="30" flex layout="column">
             <div flex layout="row">
                 <md-autocomplete flex md-floating-label="护理人员" md-items="assistant in assistants | filter:logAssistantSearchText" md-search-text="logAssistantSearchText" md-item-text="assistant.name" md-selected-item="log.assistant" md-min-length="0" md-no-cache="true" ng-disabled="!$parent.user.can('manage-user')">
                     <span>{{assistant.name}}</span>
