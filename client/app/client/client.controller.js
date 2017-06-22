@@ -69,7 +69,7 @@
 
         socketIoService.on('temp data update', function (bean) {
 
-            // console.log(bean.mac, bean.rssi, bean.temp + '°C', bean.humi + '%', bean.distance + 'cm');
+            // console.log(bean.mac, bean.rssi, bean.temp + '°C', bean.humi + '%', bean.distance + 'cm', bean.battery + '%');
             
             if ($scope.client.bean) {
                 if ($scope.client.bean._id === bean._id) {

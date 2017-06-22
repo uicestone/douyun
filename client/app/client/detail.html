@@ -39,7 +39,14 @@
                             <img class="md-avatar contain" src="assets/images/logo.png">
                             <div class="md-list-item-text">
                                 <h3>传感器</h3>
-                                <p>{{ client.bean.mac || nearByBean.mac || '未绑定' }}</p>
+                                <p>
+                                    {{ client.bean.mac || nearByBean.mac || '未绑定，请将新传感器靠近嗅探器' }}
+                                    <span ng-if="client.bean.mac">
+                                        <i class="fa" ng-class="{'fa-battery-0':client.bean.battery>=0&&client.bean.battery<20, 'fa-battery-1':client.bean.battery>=20&&client.bean.battery<40, 'fa-battery-2':client.bean.battery>=40&&client.bean.battery<60, 'fa-battery-3':client.bean.battery>=80&&client.bean.battery<80, 'fa-battery-4':client.bean.battery>=80&&client.bean.battery<=100}">
+                                            <md-tooltip>电量：{{ client.bean.battery }}%</md-tooltip>
+                                        </i>
+                                    </span>
+                                </p>
                             </div>
                             <div class="md-secondary">
                                 <span ng-if="client.bean" class="label label-success">已绑定</span>

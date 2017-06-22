@@ -8,6 +8,7 @@ const beanSchema = new Schema({
     temp: Number,
     humi: Number,
     distance: Number,
+    battery: Number,
     lastUpdatedAt: Date
 });
 

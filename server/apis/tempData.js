@@ -80,6 +80,7 @@ module.exports = (router, io) => {
             bean.temp = line.temp;
             bean.humi = line.humi;
             bean.distance = line.distance;
+            bean.battery = line.battery;
             bean.lastUpdatedAt = new Date();
 
             // save current stat to the bean

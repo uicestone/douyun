@@ -42,11 +42,18 @@
                             <md-list-item class="md-2-line">
                                 <md-icon>opacity</md-icon>
                                 <div class="md-list-item-text">
-                                    <h3>
+                                    <h3 ng-if="client.bean">
                                         <i class="fa fa-thermometer-half"></i> {{ client.bean.temp | number:1 || '-' }}℃
                                         <i class="fa fa-tint"></i> {{ client.bean.humi | number:1 || '-' }}%
+                                        <span>
+                                            <i class="fa" ng-class="{'fa-battery-0':client.bean.battery>=0&&client.bean.battery<20, 'fa-battery-1':client.bean.battery>=20&&client.bean.battery<40, 'fa-battery-2':client.bean.battery>=40&&client.bean.battery<60, 'fa-battery-3':client.bean.battery>=80&&client.bean.battery<80, 'fa-battery-4':client.bean.battery>=80&&client.bean.battery<=100}">
+                                                <md-tooltip>电量：{{ client.bean.battery }}%</md-tooltip>
+                                            </i>
+                                        </span>
                                     </h3>
-                                    <p>当前状态{{ client.status.name || '良好' }}</p>
+                                    <p ng-if="client.bean">当前状态{{ client.status.name || '良好' }}</p>
+                                    <h3 ng-if="!client.bean">未绑定传感器</h3>
+                                    <p ng-if="!client.bean">请在详情中绑定</p>
                                 </div>
                             </md-list-item>
                         </md-list>
